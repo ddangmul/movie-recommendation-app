@@ -16,7 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div className="px-4 md:px-6 lg:px-60 pt-20">
+        <div className="px-4 lg:px-60 pt-20 min-h-screen">
           <MainHeader />
           {children}
           <Footer />

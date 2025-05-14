@@ -9,7 +9,12 @@ const MainHeader: React.FC = () => {
       <div className="w-full flex items-center justify-between px-4 md:px-6 lg:px-60">
         <div className="flex flex-start gap-4 md:gap-6 lg:gap-8 items-center">
           <Link href="/" className="logo" aria-label="로고">
-            <Image src={Logo} alt="로고 이미지" width={40} height={20} />
+            <Image
+              src={Logo}
+              alt="로고 이미지"
+              width={40}
+              style={{ height: "auto" }}
+            />
           </Link>
           <div className="flex gap-4 md:text-lg text-[#555555]">
             <Link href="/" aria-label="home">
