@@ -3,7 +3,10 @@ import Link from "next/link";
 
 const ContentCard: React.FC<{ content: any }> = ({ content }) => {
   return (
-    <Link href="/" className="w-full flex-shrink-0 shadow-md">
+    <Link
+      href={`/${content.category}/${content.id}`}
+      className="w-full flex-shrink-0 shadow-md"
+    >
       <div className="relative w-[200px] h-[300px]">
         <Image
           src={`https://image.tmdb.org/t/p/w500${content.poster_path}`}

@@ -3,7 +3,10 @@ import { useRef } from "react";
 import ContentCard from "./content-card";
 import { LucideChevronLeft, LucideChevronRight } from "lucide-react";
 
-const ContentsSlider: React.FC<{ contents: any }> = ({ contents }) => {
+const ContentsSlider: React.FC<{ contents: any; category: string }> = ({
+  contents,
+  category,
+}) => {
   const listRef = useRef<HTMLUListElement>(null);
 
   const scrollleft = () => {
@@ -42,7 +45,7 @@ const ContentsSlider: React.FC<{ contents: any }> = ({ contents }) => {
       >
         {contents.map((content: any) => (
           <li key={content.id}>
-            <ContentCard content={content} />
+            <ContentCard content={{ ...content, category }} />
           </li>
         ))}
       </ul>
