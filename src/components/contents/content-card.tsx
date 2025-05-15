@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Star } from "lucide-react";
 
 type Props = {
   content: any;
@@ -23,9 +24,12 @@ const ContentCard: React.FC<Props> = ({ content, className }) => {
           sizes="150px"
         />
       </div>
-      <div className="text-left text-sm mt-2 w-full px-4">
-        <h3 className="overflow-hidden">{content.title}</h3>
-        <p>평점 {content.vote_average}</p>
+      <div className="text-left text-sm mt-2 w-full">
+        <h3 className="overflow-hidden">{content.title || content.name}</h3>
+        <div className="flex gap-1 items-center">
+          <Star className="w-5 text-yellow-300 fill-yellow-300" />
+          <p>평점 {content.vote_average}</p>
+        </div>
       </div>
     </Link>
   );

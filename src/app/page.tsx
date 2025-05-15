@@ -2,14 +2,17 @@ import ContentsSection from "../components/contents/contents-section";
 
 const HomePage = () => {
   return (
-    <div className="pt-20 px-4 md:px-6 lg:px-60">
-      <ContentsSection pathname="movie/popular" topic="HOT 영화" />
+    <div className="flex flex-col gap-8 pt-20 px-4 md:px-6 lg:px-60">
       <ContentsSection
-        pathname="discover/tv?sort_by=popularity.desc&with_origin_country=KR"
+        pathname="movie/popular?language=ko-KR"
+        topic="HOT 영화"
+      />
+      <ContentsSection
+        pathname="discover/tv?language=ko-KR&with_original_language=ko&sort_by=popularity.desc"
         topic="HOT 시리즈"
       />
       <ContentsSection
-        pathname="discover/movie?with_genres=28&sort_by=popularity.desc"
+        pathname="discover/movie?with_genres=28&sort_by=popularity.desc&language=ko-KR"
         topic="TOP 액션 영화"
       />
     </div>
