@@ -27,13 +27,12 @@ export default async function DetailContentPage({ params }: Props) {
   const people = [...credits.directors, ...credits.cast];
   const similarContents = await fetchSimilarContents(category, id);
   const stills = await fetchStills(category, id);
-  console.log(stills);
   return (
     <div>
       <BackDropSection content={content} />
       <OverviewSection content={content} overview={overview} />
       <div className="px-4 md:px-8 lg:px-60 mt-8 space-y-20  md:space-y-28">
-        <Credits credits={people} />
+        <Credits credits={people} category={category} />
         <Stills stills={stills} />
         <SimilarContent
           content={content}

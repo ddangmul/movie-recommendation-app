@@ -32,11 +32,10 @@ export default function SearchPage() {
     router.push(`/${content.media_type}/${content.id}`);
   };
 
-  console.log(searchResult);
   return (
     <div className="pt-28 px-4 md:px-6 lg:px-60 min-h-screen">
-      <h2 className="md:px-6 lg:px-2">'{searchTerm}' 검색 결과</h2>
-      <section>
+      <h2 className="text-lg px-2">'{searchTerm}' 검색 결과</h2>
+      <section className="mt-4">
         <ul className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-2 md:gap-3 lg:gap-10">
           {searchResult.map((content: any) => (
             <li

@@ -158,7 +158,7 @@ export const searchMulti = cache(async (query: string) => {
   }
 
   const data = await res.json();
-  
+
   const filteredResults = data.results.filter(
     (item: any) =>
       (item.title || item.name) &&
