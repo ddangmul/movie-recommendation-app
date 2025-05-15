@@ -27,7 +27,7 @@ export default function BackDropSection({ content }: Props) {
             {content.release_date || content.first_air_date}
           </p>
           <p>
-            {content.genres[0].name} | {content.origin_country} |{" "}
+            {content.genres[0]?.name || ""} | {content.origin_country} |{" "}
             {content.runtime}분
           </p>
         </div>

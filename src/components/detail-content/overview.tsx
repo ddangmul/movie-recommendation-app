@@ -34,10 +34,9 @@ export default function OverviewSection({ content, overview }: Props) {
           </div>
         </div>
         <div className="text-sm text-gray-800 relative">
-          {" "}
           <p
             className={`${
-              isExpanded ? "" : "line-clamp-4"
+              isExpanded ? "" : "line-clamp-5"
             } transition-all duration-300`}
           >
             {overview || "줄거리 정보가 없습니다."}
@@ -45,7 +44,7 @@ export default function OverviewSection({ content, overview }: Props) {
           {overview.length > 100 && (
             <button
               onClick={() => setIsExpanded(!isExpanded)}
-              className="text-gray-500 text-xs mt-1 hover:underline"
+              className="text-gray-500 text-xs mt-1 hover:text-gray-800"
             >
               {isExpanded ? "접기" : "더보기"}
             </button>

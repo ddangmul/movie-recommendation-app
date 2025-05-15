@@ -15,7 +15,18 @@ export async function fetchTMDB(pathname: string) {
   }
 
   const data = await res.json();
-  return data.results;
+
+  const filteredResults = data.results.filter(
+    (item: any) =>
+      (item.title || item.name) &&
+      item.backdrop_path &&
+      item.poster_path &&
+      item.overview &&
+      item.vote_average &&
+      item.vote_average !== 0
+  );
+
+  return filteredResults;
 }
 
 export const fetchContentsById = cache(async (category: string, id: string) => {
@@ -52,3 +63,59 @@ export const fetchKoreanOverview = cache(
     return data.overview;
   }
 );
+
+export const fetchCredits = cache(async (category: string, id: string) => {
+  const res = await fetch(`${BASE_URL}/${category}/${id}/credits`, {
+    headers: {
+      Authorization: `Bearer ${TMDB_BEARER_TOKEN}`,
+      accept: "application/json",
+    },
+  });
+
+  const resJob = await fetch(
+    `${BASE_URL}/${category}/${id}/credits?language=ko-KR`,
+    {
+      headers: {
+        Authorization: `Bearer ${TMDB_BEARER_TOKEN}`,
+        accept: "application/json",
+      },
+    }
+  );
+
+  if (!res.ok || !resJob.ok) {
+    throw new Error(`Failed to fetch Korean overview`);
+  }
+
+  const data = await res.json();
+  const dataJob = await resJob.json();
+
+  return {
+    cast: data.cast.slice(0, 5).map((person: any, idx: number) => {
+      const koreanPerson = dataJob.cast[idx];
+      return {
+        ...person,
+        character: koreanPerson?.character || person.character,
+      };
+    }),
+    directors: data.crew.filter((person: any) => person.job === "Director"),
+  };
+});
+
+export const fetchReviews = cache(async (category: string, id: string) => {
+  const res = await fetch(
+    `${BASE_URL}/{category}/{id}/reviews?language=ko-KR`,
+    {
+      headers: {
+        Authorization: `Bearer ${TMDB_BEARER_TOKEN}`,
+        accept: "application/json",
+      },
+    }
+  );
+
+  if (!res.ok) {
+    throw new Error("리뷰 데이터 불러오기 실패");
+  }
+
+  const data = await res.json();
+  return data.results;
+});
