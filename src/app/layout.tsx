@@ -6,6 +6,9 @@ import Footer from "../components/footer";
 export const metadata: Metadata = {
   title: "REEL PICK | 영화 추천 서비스",
   description: "영화, 시리즈 평가&추천 서비스",
+  icons: {
+    icon: "/favicon.png",
+  },
 };
 
 export default function RootLayout({
@@ -16,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div className="px-4 lg:px-60 min-h-screen">
+        <div className="min-h-screen">
           <MainHeader />
           {children}
           <Footer />

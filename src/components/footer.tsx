@@ -5,7 +5,7 @@ import { Twitter, Facebook, Instagram } from "lucide-react";
 
 const Footer: React.FC = () => {
   return (
-    <footer className="w-full bg-[#202020] text-[#dbdbdb] shadow py-8 fixed bottom-0 left-0 z-50">
+    <footer className="w-full bg-[#202020] text-[#dbdbdb] py-10 bottom-0 left-0 mt-20">
       <div className="w-full flex items-center justify-between px-4 md:px-6 lg:px-60 text-xs">
         <div className="flex flex-col gap-2">
           <p className="space-x-3">

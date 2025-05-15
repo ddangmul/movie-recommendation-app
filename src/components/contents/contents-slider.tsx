@@ -3,10 +3,10 @@ import { useRef } from "react";
 import ContentCard from "./content-card";
 import { LucideChevronLeft, LucideChevronRight } from "lucide-react";
 
-const ContentsSlider: React.FC<{ contents: any; category: string }> = ({
-  contents,
-  category,
-}) => {
+const ContentsSlider: React.FC<{
+  contents: any;
+  category: string | undefined;
+}> = ({ contents, category }) => {
   const listRef = useRef<HTMLUListElement>(null);
 
   const scrollleft = () => {

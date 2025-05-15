@@ -10,7 +10,7 @@ const ContentCard: React.FC<{ content: any }> = ({ content }) => {
       <div className="relative w-[200px] h-[300px]">
         <Image
           src={`https://image.tmdb.org/t/p/w500${content.poster_path}`}
-          alt={content.title}
+          alt={content.id}
           fill
           className="object-cover rounded-md"
           sizes="150px"

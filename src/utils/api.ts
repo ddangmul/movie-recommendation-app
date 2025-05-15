@@ -1,17 +1,54 @@
-// src/utils/api.ts
-const API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY;
-const BASE_URL = process.env.BASE_URL;
+import { cache } from "react";
+import { BASE_URL, TMDB_BEARER_TOKEN } from "./constants";
 
-export const fetchPopularMovies = async (page: number = 1) => {
-  try {
-    const res = await fetch(
-      `${BASE_URL}/movie/popular?api_key=${API_KEY}&language=ko-KR&page=${page}`
-    );
-    if (!res.ok) throw new Error("API 요청 실패");
-    const data = await res.json();
-    return data.results; // 영화 리스트만 추출
-  } catch (err) {
-    console.error("TMDB 호출 에러:", err);
-    return [];
+export async function fetchTMDB(pathname: string) {
+  const res = await fetch(`${BASE_URL}/${pathname}`, {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer ${TMDB_BEARER_TOKEN}`,
+    },
+  });
+
+  if (!res.ok) {
+    throw new Error(`TMDB fetch error: ${res.status}`);
   }
-};
+
+  const data = await res.json();
+  return data.results;
+}
+
+export const fetchContentsById = cache(async (category: string, id: string) => {
+  const res = await fetch(`${BASE_URL}/${category}/${id}`, {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer ${TMDB_BEARER_TOKEN}`,
+    },
+  });
+
+  if (!res.ok) {
+    throw new Error(`TMDB fetch error: ${res.status}`);
+  }
+
+  const data = await res.json();
+  return data;
+});
+
+export const fetchKoreanOverview = cache(
+  async (category: string, id: string) => {
+    const res = await fetch(`${BASE_URL}/${category}/${id}?language=ko-KR`, {
+      headers: {
+        Authorization: `Bearer ${TMDB_BEARER_TOKEN}`,
+        accept: "application/json",
+      },
+    });
+
+    if (!res.ok) {
+      throw new Error(`Failed to fetch Korean overview`);
+    }
+
+    const data = await res.json();
+    return data.overview;
+  }
+);

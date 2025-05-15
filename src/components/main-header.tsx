@@ -5,16 +5,20 @@ import Link from "next/link";
 import Logo from "../assets/MainLogo.png";
 import { ArchiveBoxIcon } from "@heroicons/react/24/outline";
 import { usePathname } from "next/navigation";
+import { isDetailPagePath } from "../utils/path";
 
 const MainHeader: React.FC = () => {
   const pathname = usePathname();
-  const isDetailPage = /^\/(movie|series)\/\d+$/.test(pathname); // /[category]/[id] 패턴
+  const isDetailPage = isDetailPagePath(pathname);
 
   const textColorClass = isDetailPage ? "text-white" : "text-[#555555]";
   const iconColorClass = isDetailPage ? "text-white" : "text-gray-700";
+  const bgColorClass = isDetailPage ? "bg-transparent" : "bg-white";
 
   return (
-    <header className="w-full bg-transparent shadow py-4 fixed top-0 left-0 z-50">
+    <header
+      className={`w-full shadow py-4 fixed top-0 left-0 z-50 ${bgColorClass}`}
+    >
       <div className="w-full flex items-center justify-between px-4 md:px-6 lg:px-60">
         <div className="flex flex-start gap-4 md:gap-6 lg:gap-8 items-center">
           <Link href="/" className="logo" aria-label="로고">
