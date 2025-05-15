@@ -101,9 +101,9 @@ export const fetchCredits = cache(async (category: string, id: string) => {
   };
 });
 
-export const fetchReviews = cache(async (category: string, id: string) => {
+export const fetchSimilarContents = async (category: string, id: string) => {
   const res = await fetch(
-    `${BASE_URL}/{category}/{id}/reviews?language=ko-KR`,
+    `${BASE_URL}/${category}/${id}/similar?language=ko-KR`,
     {
       headers: {
         Authorization: `Bearer ${TMDB_BEARER_TOKEN}`,
@@ -113,9 +113,9 @@ export const fetchReviews = cache(async (category: string, id: string) => {
   );
 
   if (!res.ok) {
-    throw new Error("리뷰 데이터 불러오기 실패");
+    throw new Error("유사한 콘텐츠 불러오기 실패");
   }
 
   const data = await res.json();
   return data.results;
-});
+};
