@@ -1,10 +1,8 @@
-import ContentsSlider from "@/src/components/contents/contents-slider";
 import BackDropSection from "@/src/components/detail-content/backdrop";
 import Credits from "@/src/components/detail-content/credits";
 import OverviewSection from "@/src/components/detail-content/overview";
 import SimilarContent from "@/src/components/detail-content/similar-content";
 import Stills from "@/src/components/detail-content/stills";
-import ImageSlider from "@/src/components/image-slider";
 import {
   fetchContentsById,
   fetchKoreanOverview,
@@ -12,7 +10,6 @@ import {
   fetchSimilarContents,
   fetchStills,
 } from "@/src/utils/api";
-import { TMDB_BEARER_TOKEN } from "@/src/utils/constants";
 
 type Props = {
   params: {

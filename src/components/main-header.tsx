@@ -6,6 +6,7 @@ import Logo from "../assets/MainLogo.png";
 import { ArchiveBoxIcon } from "@heroicons/react/24/outline";
 import { usePathname } from "next/navigation";
 import { isDetailPagePath } from "../utils/path";
+import SearchBar from "./search-bar";
 
 const MainHeader: React.FC = () => {
   const pathname = usePathname();
@@ -44,9 +45,13 @@ const MainHeader: React.FC = () => {
             </Link>
           </div>
         </div>
-        <Link href="/user" aria-label="보관함">
-          <ArchiveBoxIcon className={`w-8 h-8 ${iconColorClass}`} />
-        </Link>
+
+        <div className="flex gap-2 lg:gap-3 items-center">
+          <SearchBar />
+          <Link href="/user" aria-label="보관함">
+            <ArchiveBoxIcon className={`w-8 h-8 ${iconColorClass}`} />
+          </Link>
+        </div>
       </div>
     </header>
   );
