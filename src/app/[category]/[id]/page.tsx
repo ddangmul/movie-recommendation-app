@@ -1,13 +1,16 @@
-import ContentsSection from "@/src/components/contents/contents-section";
 import ContentsSlider from "@/src/components/contents/contents-slider";
 import BackDropSection from "@/src/components/detail-content/backdrop";
 import Credits from "@/src/components/detail-content/credits";
 import OverviewSection from "@/src/components/detail-content/overview";
+import SimilarContent from "@/src/components/detail-content/similar-content";
+import Stills from "@/src/components/detail-content/stills";
+import ImageSlider from "@/src/components/image-slider";
 import {
   fetchContentsById,
   fetchKoreanOverview,
   fetchCredits,
   fetchSimilarContents,
+  fetchStills,
 } from "@/src/utils/api";
 import { TMDB_BEARER_TOKEN } from "@/src/utils/constants";
 
@@ -25,47 +28,22 @@ export default async function DetailContentPage({ params }: Props) {
   const overview = await fetchKoreanOverview(category, id);
   const credits = await fetchCredits(category, id);
   const people = [...credits.directors, ...credits.cast];
-  const similarContent = await fetchSimilarContents(category, id);
-  console.log(content);
+  const similarContents = await fetchSimilarContents(category, id);
+  const stills = await fetchStills(category, id);
+  console.log(stills);
   return (
     <div>
       <BackDropSection content={content} />
-      <div className="px-4 md:px-8 lg:px-60 mt-8 space-y-20">
-        <OverviewSection content={content} overview={overview} />
+      <OverviewSection content={content} overview={overview} />
+      <div className="px-4 md:px-8 lg:px-60 mt-8 space-y-20  md:space-y-28">
         <Credits credits={people} />
-        <div>
-          <h3 className="text-md font-semibold">스틸</h3>
-        </div>
-        <div>
-          <h3 className="text-md font-semibold">
-            '{content.title || content.name}' 와 유사한 컨텐츠
-          </h3>
-          {similarContent.length >= 1 ? (
-            <ContentsSlider contents={similarContent} category={category} />
-          ) : (
-            <p className="text-sm">유사한 컨텐츠 정보가 없습니다.</p>
-          )}
-        </div>
+        <Stills stills={stills} />
+        <SimilarContent
+          content={content}
+          contents={similarContents}
+          category={category}
+        />
       </div>
     </div>
   );
 }
-
-export const fetchStills = async (category: string, id: string) => {
-  const res = await fetch(
-    `https://api.themoviedb.org/3/${category}/${id}/images`,
-    {
-      headers: {
-        Authorization: `Bearer ${TMDB_BEARER_TOKEN}`,
-        accept: "application/json",
-      },
-    }
-  );
-
-  if (!res.ok) {
-    throw new Error("스틸 이미지를 불러오기 실패");
-  }
-
-  const data = await res.json();
-  return data.backdrops.slice(0, 10);
-};

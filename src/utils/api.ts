@@ -119,3 +119,24 @@ export const fetchSimilarContents = async (category: string, id: string) => {
   const data = await res.json();
   return data.results;
 };
+
+
+export const fetchStills = async (category: string, id: string) => {
+  const res = await fetch(
+    `https://api.themoviedb.org/3/${category}/${id}/images`,
+    {
+      headers: {
+        Authorization: `Bearer ${TMDB_BEARER_TOKEN}`,
+        accept: "application/json",
+      },
+    }
+  );
+
+  if (!res.ok) {
+    throw new Error("스틸 이미지를 불러오기 실패");
+  }
+
+  const data = await res.json();
+  return data.backdrops.slice(0, 10);
+};
+

@@ -6,7 +6,7 @@ type Props = {
 
 export default function Credits({ credits }: Props) {
   return (
-    <div>
+    <section>
       <h3 className="text-md font-semibold mb-8">출연/제작</h3>
       <ul className="grid grid-cols-2 grid-rows-3 gap-4">
         {credits.map((person: any) => (
@@ -29,6 +29,6 @@ export default function Credits({ credits }: Props) {
           </li>
         ))}
       </ul>
-    </div>
+    </section>
   );
 }
