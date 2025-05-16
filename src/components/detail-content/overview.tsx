@@ -1,9 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { PlusIcon } from "lucide-react";
 import Rating from "../rating";
 import { useState } from "react";
+import Storage from "../storage";
 
 type Props = {
   content: any;
@@ -28,10 +28,7 @@ export default function OverviewSection({ content, overview }: Props) {
             <Rating contentId={content.id} />
             <p className="text-xs text-right text-gray-600 mt-2">평가하기</p>
           </div>
-          <div className="mb-10 flex flex-col items-end">
-            <PlusIcon className="text-gray-600 " />
-            <p className="text-xs text-right text-gray-600 mt-1">보고싶어요</p>
-          </div>
+          <Storage contentId={content.id} />
         </div>
         <div className="w-full flex flex-col text-sm text-gray-800 relative">
           <p
