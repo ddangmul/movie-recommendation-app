@@ -11,7 +11,7 @@ const ContentsSection = async (props: { topic: string; pathname: string }) => {
   }
 
   return (
-    <section className="space-y-2 mt-20">
+    <section className="space-y-2 mb-20">
       <h1 className="text-lg font-semibold">{props.topic}</h1>
       <ContentsSlider contents={contents} category={category} />
     </section>

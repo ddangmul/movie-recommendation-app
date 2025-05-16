@@ -1,8 +1,10 @@
 import ContentsSection from "../components/contents/contents-section";
+import PersonalTab from "../components/personal-tap";
 
 const HomePage = () => {
   return (
-    <div className="flex flex-col gap-8 pt-20 px-4 md:px-6 lg:px-60">
+    <div className="flex flex-col gap-8 px-4 md:px-6 lg:px-60">
+      <PersonalTab />
       <ContentsSection
         pathname="movie/popular?language=ko-KR"
         topic="HOT 영화"

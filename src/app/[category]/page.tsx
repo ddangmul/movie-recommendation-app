@@ -50,8 +50,6 @@ export default async function ContentTypePage({ params }: Props) {
   }
 
   return (
-    <div className="flex flex-col gap-8 pt-20 px-4 md:px-6 lg:px-60">
-      {content}
-    </div>
+    <div className="flex flex-col gap-8 px-4 md:px-6 lg:px-60">{content}</div>
   );
 }
