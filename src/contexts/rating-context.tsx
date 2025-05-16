@@ -1,13 +1,8 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
+import { ContentWithRating } from "../types/types";
 
-type ContentWithRating = {
-  id: string;
-  category: string;
-  [key: string]: any;
-  rating: number;
-};
+import { createContext, useContext, useEffect, useState } from "react";
 
 const RatingContext = createContext<{
   ratings: ContentWithRating[];

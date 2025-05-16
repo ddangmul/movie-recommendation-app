@@ -1,11 +1,7 @@
 import { PlusIcon } from "lucide-react";
 import { XIcon } from "lucide-react";
 import { useStorage } from "../contexts/storage-context";
-
-type WishContent = {
-  id: string;
-  [key: string]: any;
-};
+import { WishContent } from "../types/types";
 
 export default function Storage({
   content,

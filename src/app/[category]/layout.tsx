@@ -1,4 +1,3 @@
-import PersonalTab from "@/src/components/personal-tap";
 import { ReactNode } from "react";
 
 type ContentLayoutProps = {

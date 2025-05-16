@@ -3,10 +3,8 @@ import ContentsSlider from "./contents-slider";
 import { fetchTMDB } from "@/src/utils/api";
 
 const ContentsSection = async (props: { topic: string; pathname: string }) => {
-  console.log(props.pathname);
   const category = extractCategoryFromPath(props.pathname);
   const contents = await fetchTMDB(props.pathname);
-  console.log(category);
 
   if (!category) {
     throw new Error("Invalid category in pathname");

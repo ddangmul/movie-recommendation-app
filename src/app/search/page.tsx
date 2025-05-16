@@ -80,7 +80,11 @@ export default function SearchPage() {
               className="mt-6 mx-0"
               onClick={() => handleClick(content)}
             >
-              <ContentCard content={content} className="w-[360px] h-[540px]" />
+              <ContentCard
+                content={content}
+                category={content.media_type}
+                className="w-[360px] h-[540px]"
+              />
             </li>
           ))}
         </ul>

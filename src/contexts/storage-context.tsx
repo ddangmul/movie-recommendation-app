@@ -1,11 +1,7 @@
 "use client";
 
+import { WishContent } from "../types/types";
 import { createContext, useContext, useState, useEffect } from "react";
-
-type WishContent = {
-  id: string;
-  [key: string]: any;
-};
 
 type StorageMap = WishContent[];
 
