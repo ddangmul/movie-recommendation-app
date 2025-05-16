@@ -4,7 +4,6 @@ import { searchMulti } from "@/src/utils/api";
 import { useEffect, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import ContentCard from "@/src/components/contents/content-card";
-import Link from "next/link";
 
 export default function SearchPage() {
   const router = useRouter();

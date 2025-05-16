@@ -2,15 +2,20 @@
 
 import { createContext, useContext, useState, useEffect } from "react";
 
-type StorageMap = string[];
+type WishContent = {
+  id: string;
+  [key: string]: any;
+};
+
+type StorageMap = WishContent[];
 
 const STORAGE_KEY = "STORAGE";
 
 const storageContext = createContext<{
   storage: StorageMap;
-  addToStorage: (contentId: string) => void;
-  deleteFromStorage: (contentId: string) => void;
-  isInStorage: (contentId: string) => boolean;
+  addToStorage: (content: WishContent, category: string) => void;
+  deleteFromStorage: (content: WishContent) => void;
+  isInStorage: (content: WishContent) => boolean;
 }>({
   storage: [],
   addToStorage: () => {},
@@ -37,18 +42,19 @@ export function StorageProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
   };
 
-  const addToStorage = (contentId: string) => {
-    if (!storage.includes(contentId)) {
-      updateStorage([...storage, contentId]);
+  const addToStorage = (content: WishContent, category: string) => {
+    if (!storage.some((item) => item.id === content.id)) {
+      const newContent = { ...content, category };
+      updateStorage([...storage, newContent]);
     }
   };
 
-  const deleteFromStorage = (contentId: string) => {
-    updateStorage(storage.filter((id) => id !== contentId));
+  const deleteFromStorage = (content: WishContent) => {
+    updateStorage(storage.filter((cont) => cont.id !== content.id));
   };
 
-  const isInStorage = (contentId: string) => {
-    return storage.includes(contentId);
+  const isInStorage = (content: WishContent) => {
+    return storage.some((item) => item.id === content.id);
   };
 
   return (

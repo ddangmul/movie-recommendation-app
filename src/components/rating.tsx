@@ -4,10 +4,17 @@ import { useState } from "react";
 import { Star } from "lucide-react";
 import { useRating } from "../contexts/rating-context";
 
-export default function Rating({ contentId }: { contentId: string }) {
+export default function Rating({
+  content,
+  category,
+}: {
+  content: any;
+  category: string;
+}) {
   const [_hover, setHover] = useState(0);
   const { ratings, setRating } = useRating();
-  const currentRating = ratings[contentId] || 0;
+  const currentRating =
+    ratings.find((cont) => cont.id === content.id)?.rating || 0;
 
   return (
     <div className="flex gap-1">
@@ -20,7 +27,7 @@ export default function Rating({ contentId }: { contentId: string }) {
               ? "text-yellow-400 fill-yellow-400"
               : "text-gray-400"
           }`}
-          onClick={() => setRating(contentId, star)}
+          onClick={() => setRating(content, category, star)}
           onMouseEnter={() => setHover(star)}
           onMouseLeave={() => setHover(0)}
         />

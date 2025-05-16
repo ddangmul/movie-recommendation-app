@@ -1,4 +1,3 @@
-// utils/path.ts
 export function isDetailPagePath(pathname: string): boolean {
   const path = pathname.split("?")[0]; // 쿼리 제거
   const segments = path.split("/").filter(Boolean); // 빈 문자열 제거
@@ -15,7 +14,7 @@ export function extractCategoryFromPath(
   pathname: string
 ): "movie" | "tv" | undefined {
   const path = pathname.split("?")[0]; // 쿼리 제거
-  const segments = path.split("/");
+  const segments = path.split("/").filter(Boolean); // 빈 문자열 제거
 
   if (segments[0] === "movie" || segments[0] === "tv") {
     return segments[0];

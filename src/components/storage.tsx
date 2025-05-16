@@ -2,22 +2,32 @@ import { PlusIcon } from "lucide-react";
 import { XIcon } from "lucide-react";
 import { useStorage } from "../contexts/storage-context";
 
-export default function Storage({ contentId }: { contentId: string }) {
+type WishContent = {
+  id: string;
+  [key: string]: any;
+};
+
+export default function Storage({
+  content,
+  category,
+}: {
+  content: WishContent;
+  category: string;
+}) {
   const { addToStorage, deleteFromStorage, isInStorage } = useStorage();
-  const isSaved = isInStorage(contentId);
-  console.log(isSaved);
+  const isSaved = isInStorage(content);
 
   return (
     <div className="mb-10 flex flex-col items-end">
       {isSaved ? (
         <XIcon
           className="text-gray-500 cursor-pointer"
-          onClick={() => isSaved && deleteFromStorage(contentId)}
+          onClick={() => isSaved && deleteFromStorage(content)}
         />
       ) : (
         <PlusIcon
           className="text-gray-600 cursor-pointer"
-          onClick={() => !isSaved && addToStorage(contentId)}
+          onClick={() => !isSaved && addToStorage(content, category)}
         />
       )}
       <p className="text-xs text-right text-gray-600 mt-1">

@@ -5,7 +5,7 @@ import { LucideChevronLeft, LucideChevronRight } from "lucide-react";
 
 const ContentsSlider: React.FC<{
   contents: any;
-  category: string | undefined;
+  category: string;
 }> = ({ contents, category }) => {
   const listRef = useRef<HTMLUListElement>(null);
 
@@ -43,11 +43,16 @@ const ContentsSlider: React.FC<{
         ref={listRef}
         className="flex overflow-x-hidden scroll-smooth gap-2 md:gap-4 h-[450px]"
       >
-        {contents.map((content: any) => (
-          <li key={content.id}>
-            <ContentCard content={{ ...content, category }} />
-          </li>
-        ))}
+        {contents
+          .filter((content: any) => !!content.poster_path)
+          .map((content: any) => (
+            <li key={content.id}>
+              <ContentCard
+                content={content}
+                category={category !== "" ? category : content.category}
+              />
+            </li>
+          ))}
       </ul>
     </div>
   );

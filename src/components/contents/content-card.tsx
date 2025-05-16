@@ -4,11 +4,12 @@ import { Star } from "lucide-react";
 
 type Props = {
   content: any;
+  category: string;
 } & React.HTMLAttributes<string>;
 
-const ContentCard: React.FC<Props> = ({ content, className }) => {
+const ContentCard: React.FC<Props> = ({ content, category, className }) => {
   return (
-    <Link href={`/${content.category}/${content.id}`} className="flex-shrink-0">
+    <Link href={`/${category}/${content.id}`} className="flex-shrink-0">
       <div className="max-w-[200px]">
         <div
           className={`relative mx-auto ${
@@ -29,7 +30,8 @@ const ContentCard: React.FC<Props> = ({ content, className }) => {
           <h3 className="">{content.title || content.name}</h3>
           <div className="flex gap-1 items-center">
             <Star className="w-5 text-yellow-300 fill-yellow-300" />
-            <p>평점 {content.vote_average}</p>
+            {!content.rating && <p>평점 {content.vote_average}</p>}
+            {content.rating && <p>내 평점 {content.rating}</p>}
           </div>
         </div>
       </div>

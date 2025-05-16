@@ -2,17 +2,20 @@
 
 import { createContext, useContext, useEffect, useState } from "react";
 
-type RatingMap = {
-  [contentId: string]: number;
+type ContentWithRating = {
+  id: string;
+  category: string;
+  [key: string]: any;
+  rating: number;
 };
 
 const RatingContext = createContext<{
-  ratings: RatingMap;
-  setRating: (contentId: string, rating: number) => void;
-}>({ ratings: {}, setRating: () => {} });
+  ratings: ContentWithRating[];
+  setRating: (contentId: string, category: string, rating: number) => void;
+}>({ ratings: [], setRating: () => {} });
 
 export function RatingProvider({ children }: { children: React.ReactNode }) {
-  const [ratings, setRatings] = useState<RatingMap>({});
+  const [ratings, setRatings] = useState<ContentWithRating[]>([]);
 
   useEffect(() => {
     const storedRatings = localStorage.getItem("RATINGS");
@@ -25,9 +28,11 @@ export function RatingProvider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
-  const setRating = (contentId: string, rating: number) => {
+  const setRating = (content: any, category: string, rating: number) => {
     setRatings((prev) => {
-      const updatedRatings = { ...prev, [contentId]: rating };
+      const ratedContent: ContentWithRating = { ...content, category, rating };
+      const filtered = prev.filter((item) => item.id !== content.id);
+      const updatedRatings = [...filtered, ratedContent];
       localStorage.setItem("RATINGS", JSON.stringify(updatedRatings));
       return updatedRatings;
     });
