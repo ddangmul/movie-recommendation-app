@@ -4,7 +4,9 @@ import { SearchIcon } from "lucide-react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-const SearchBar: React.FC = () => {
+const SearchBar: React.FC<{
+  className: string;
+}> = ({ className }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const router = useRouter();
@@ -33,7 +35,7 @@ const SearchBar: React.FC = () => {
           />
         )}
         <SearchIcon
-          className="ml-1 h-5"
+          className={`ml-1 h-5 ${className}`}
           onClick={() => setIsOpen((prev) => !prev)}
         />
       </form>

@@ -47,7 +47,9 @@ const MainHeader: React.FC = () => {
         </div>
 
         <div className="flex gap-2 lg:gap-3 items-center">
-          <SearchBar />
+          <SearchBar
+            className={iconColorClass}
+          />
           <Link href="/user" aria-label="보관함">
             <ArchiveBoxIcon className={`w-8 h-8 ${iconColorClass}`} />
           </Link>

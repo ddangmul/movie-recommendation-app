@@ -25,7 +25,7 @@ export default function OverviewSection({ content, overview }: Props) {
       <div className="w-full flex flex-col justify-between px-2 max-h-[300px] overflow-y-auto">
         <div className="flex flex-col items-end gap-6 py-2">
           <div>
-            <Rating />
+            <Rating contentId={content.id} />
             <p className="text-xs text-right text-gray-600 mt-2">평가하기</p>
           </div>
           <div className="mb-10 flex flex-col items-end">
