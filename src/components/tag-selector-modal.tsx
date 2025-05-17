@@ -1,8 +1,7 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { useTags } from "../contexts/tag-context";
-
 const AVAILABLE_TAGS = [
   "감성적",
   "긴장감",
@@ -26,17 +25,19 @@ export default function TagSelectorModal({
   onSelectTags: (tags: string[]) => void;
   initialTags?: string[];
 }) {
-  const { selectedTags } = useTags();
-
   const [selected, setSelected] = useState<string[]>(initialTags);
+  const { savedTags, setSavedTags, selectedTags, setSelectedTags } = useTags();
 
   const toggleTag = (tag: string) => {
-    setSelected((prev) =>
-      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
+    setSelected((prev: string[]) =>
+      prev.includes(tag)
+        ? prev.filter((t: string) => t !== tag)
+        : [...prev, tag]
     );
   };
 
   const handleSave = () => {
+    setSelectedTags(selected);
     onSelectTags(selected);
     onClose();
   };
@@ -51,21 +52,19 @@ export default function TagSelectorModal({
           </Dialog.Title>
           <h3 className="font-semibold">추천 태그</h3>
           <div className="flex flex-wrap gap-2">
-            {(selectedTags.length > 0 ? selectedTags : AVAILABLE_TAGS).map(
-              (tag) => (
-                <button
-                  key={tag}
-                  onClick={() => toggleTag(tag)}
-                  className={`px-3 py-1 rounded-full border text-sm ${
-                    selected.includes(tag)
-                      ? "bg-[#364842] text-[#cbdcd4]"
-                      : "bg-[#ecf5f1] text-[#364842]"
-                  }`}
-                >
-                  {tag}
-                </button>
-              )
-            )}
+            {(savedTags.length > 0 ? savedTags : AVAILABLE_TAGS).map((tag) => (
+              <button
+                key={tag}
+                onClick={() => toggleTag(tag)}
+                className={`px-3 py-1 rounded-full border text-sm ${
+                  selected.includes(tag)
+                    ? "bg-[#364842] text-[#cbdcd4]"
+                    : "bg-[#ecf5f1] text-[#364842]"
+                }`}
+              >
+                {tag}
+              </button>
+            ))}
           </div>
 
           <div className="flex justify-end gap-4 mt-4">

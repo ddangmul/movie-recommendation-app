@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function PersonalTab() {
   const BTN_CSS =
-    "bg-[#f3f3f3] text-[#202020] w-[150px] text-center py-1 rounded-md shadow";
+    "bg-[#f3f3f3] text-[#202020] px-4 text-center py-1 rounded-md shadow flex items-center justify-center h-10 min-w-[120px]";
   return (
     <div className="mt-28 text-lg px-4 md:px-6 lg:px-60 flex justify-center gap-8 mb-10">
       <Link href="/user/recommendations" className={BTN_CSS}>

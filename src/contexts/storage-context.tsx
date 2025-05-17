@@ -23,7 +23,7 @@ const storageContext = createContext<{
 
 export function StorageProvider({ children }: { children: React.ReactNode }) {
   const [storage, setStorage] = useState<StorageMap>([]);
-  const { selectedTags, setSelectedTags } = useTags();
+  const { savedTags, setSavedTags } = useTags();
 
   useEffect(() => {
     const storedRatings = localStorage.getItem(STORAGE_KEY);
@@ -46,7 +46,7 @@ export function StorageProvider({ children }: { children: React.ReactNode }) {
       const newContent = { ...content, category };
       updateStorage([...storage, newContent]);
     }
-    saveGenres(content, selectedTags, setSelectedTags);
+    saveGenres(content, savedTags, setSavedTags);
   };
 
   const deleteFromStorage = (content: WishContent) => {

@@ -13,7 +13,7 @@ const RatingContext = createContext<{
 
 export function RatingProvider({ children }: { children: React.ReactNode }) {
   const [ratings, setRatings] = useState<ContentWithRating[]>([]);
-  const { selectedTags, setSelectedTags } = useTags();
+  const { savedTags, setSavedTags } = useTags();
 
   useEffect(() => {
     const storedRatings = localStorage.getItem("RATINGS");
@@ -35,7 +35,7 @@ export function RatingProvider({ children }: { children: React.ReactNode }) {
       return updatedRatings;
     });
 
-    saveGenres(content, selectedTags, setSelectedTags);
+    saveGenres(content, savedTags, setSavedTags);
   };
 
   return (

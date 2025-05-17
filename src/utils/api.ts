@@ -187,7 +187,7 @@ export const searchMulti = cache(async (query: string) => {
 // };
 
 export const fetchContentsByTags = cache(
-  async (genreNames: string[], category: "movie" | "tv") => {
+  async (genreNames: string[], category: string) => {
     const genreMap: Record<string, number> = {
       액션: 28,
       모험: 12,

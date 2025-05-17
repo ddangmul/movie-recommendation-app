@@ -1,25 +1,31 @@
 "use client";
 import { useState } from "react";
+import { useTags } from "@/src/contexts/tag-context";
 import TagSelectorModal from "@/src/components/tag-selector-modal";
 import TagResults from "@/src/components/tag-results";
+import Link from "next/link";
 
 const RecommendationsPage: React.FC = () => {
   const [isModalOpen, setModalOpen] = useState(false);
-  const [tags, setTags] = useState<string[]>([]);
+  const [mediaType, setMediaType] = useState<"tv" | "movie">("movie");
+  const { selectedTags, setSelectedTags } = useTags();
 
   return (
-    <div className="px-14">
-      <div className="flex flex-col gap-2 mb-8">
+    <div className="px-10 md:px-8 lg:px-0">
+      <div className="flex flex-col md:gap-2 mb-8">
+        <Link href="/user/recommendations" className="text-lg font-semibold">
+          추천 콘텐츠
+        </Link>
         <div className="flex justify-end">
           <button
             onClick={() => setModalOpen(true)}
-            className="bg-[#cbdcd4] text-[#364842] px-4 py-2 rounded"
+            className="bg-[#cbdcd4] text-[#364842] px-2 py-1 rounded"
           >
             태그 설정
           </button>
         </div>
         <div className="flex gap-2 flex-wrap">
-          {tags.map((tag) => (
+          {selectedTags.map((tag) => (
             <span
               key={tag}
               className="px-2 py-1 bg-[#cbdcd4] text-[#364842] rounded-full text-sm"
@@ -29,11 +35,34 @@ const RecommendationsPage: React.FC = () => {
           ))}
         </div>
       </div>
-      <TagResults tags={tags} />
+      <div className="flex gap-4 mb-4">
+        <button
+          className={`px-4 py-1 rounded-md ${
+            mediaType === "movie"
+              ? "bg-[#303030] text-white"
+              : "bg-[#f2f2f2] text-[#3c3c3c]"
+          }`}
+          onClick={() => setMediaType("movie")}
+        >
+          영화
+        </button>
+        <button
+          className={`px-4 py-1 rounded-md ${
+            mediaType === "tv"
+              ? "bg-[#303030] text-white"
+              : "bg-[#f2f2f2] text-[#3c3c3c]"
+          }`}
+          onClick={() => setMediaType("tv")}
+        >
+          시리즈
+        </button>
+      </div>
+      <TagResults tags={selectedTags} category={mediaType} />
       <TagSelectorModal
         isOpen={isModalOpen}
         onClose={() => setModalOpen(false)}
-        onSelectTags={(selected) => setTags(selected)}
+        onSelectTags={(selected) => setSelectedTags(selected)}
+        initialTags={[]}
       />
     </div>
   );

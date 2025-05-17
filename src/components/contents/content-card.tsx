@@ -9,25 +9,23 @@ type Props = {
 
 const ContentCard: React.FC<Props> = ({ content, category, className }) => {
   return (
-    <Link href={`/${category}/${content.id}`} className="flex-shrink-0">
-      <div className="max-w-full">
+    <Link href={`/${category}/${content.id}`} className="block">
+      <div className="w-full">
         <div
-          className={`relative mx-auto ${
-            className
-              ? `${className} md:w-[200px] md:h-[300px]`
-              : "w-[200px] h-[300px]"
-          }`}
+          className={`relative w-[220px] md:w-[200px] lg:w-[180px] aspect-[2/3]`}
         >
           <Image
             src={`https://image.tmdb.org/t/p/w500${content.poster_path}`}
             alt={content.id}
             fill
             className="object-cover rounded-md"
-            sizes="150px"
+            sizes="(min-width: 1024px) 220px, 100vw"
           />
         </div>
         <div className="text-left text-sm mt-2">
-          <h3 className="">{content.title || content.name}</h3>
+          <h3 className="overflow-hidden text-ellipsis">
+            {content.title || content.name}
+          </h3>
           <div className="flex gap-1 items-center">
             <Star className="w-5 text-yellow-300 fill-yellow-300" />
             {!content.rating && <p>평점 {content.vote_average}</p>}
