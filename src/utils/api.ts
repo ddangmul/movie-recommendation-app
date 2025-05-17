@@ -30,7 +30,7 @@ export async function fetchTMDB(pathname: string) {
 }
 
 export const fetchContentsById = cache(async (category: string, id: string) => {
-  const res = await fetch(`${BASE_URL}/${category}/${id}`, {
+  const res = await fetch(`${BASE_URL}/${category}/${id}?language=ko-KR`, {
     method: "GET",
     headers: {
       accept: "application/json",

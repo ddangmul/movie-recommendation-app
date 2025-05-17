@@ -34,7 +34,6 @@ const RecommendationsPage: React.FC = () => {
         isOpen={isModalOpen}
         onClose={() => setModalOpen(false)}
         onSelectTags={(selected) => setTags(selected)}
-        initialTags={tags}
       />
     </div>
   );

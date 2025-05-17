@@ -1,18 +1,7 @@
 "use client";
 import { useState } from "react";
 import { Dialog } from "@headlessui/react";
-
-const AVAILABLE_TAGS = [
-  "감성적",
-  "긴장감",
-  "잔잔한",
-  "OST 좋음",
-  "반전",
-  "심리",
-  "웃긴",
-  "로맨스",
-  "폭력적",
-];
+import { useTags } from "../contexts/tag-context";
 
 export default function TagSelectorModal({
   isOpen,
@@ -25,6 +14,8 @@ export default function TagSelectorModal({
   onSelectTags: (tags: string[]) => void;
   initialTags?: string[];
 }) {
+  const { selectedTags } = useTags();
+
   const [selected, setSelected] = useState<string[]>(initialTags);
 
   const toggleTag = (tag: string) => {
@@ -46,9 +37,9 @@ export default function TagSelectorModal({
           <Dialog.Title className="text-lg font-semibold">
             태그 설정
           </Dialog.Title>
-
+          <h3 className="font-semibold">추천 태그</h3>
           <div className="flex flex-wrap gap-2">
-            {AVAILABLE_TAGS.map((tag) => (
+            {selectedTags.map((tag) => (
               <button
                 key={tag}
                 onClick={() => toggleTag(tag)}
