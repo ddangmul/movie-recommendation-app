@@ -3,6 +3,18 @@ import { useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { useTags } from "../contexts/tag-context";
 
+const AVAILABLE_TAGS = [
+  "감성적",
+  "긴장감",
+  "잔잔한",
+  "OST 좋음",
+  "반전",
+  "불안정한 심리",
+  "웃긴",
+  "로맨스",
+  "폭력적",
+];
+
 export default function TagSelectorModal({
   isOpen,
   onClose,
@@ -39,19 +51,21 @@ export default function TagSelectorModal({
           </Dialog.Title>
           <h3 className="font-semibold">추천 태그</h3>
           <div className="flex flex-wrap gap-2">
-            {selectedTags.map((tag) => (
-              <button
-                key={tag}
-                onClick={() => toggleTag(tag)}
-                className={`px-3 py-1 rounded-full border text-sm ${
-                  selected.includes(tag)
-                    ? "bg-[#364842] text-[#cbdcd4]"
-                    : "bg-[#ecf5f1] text-[#364842]"
-                }`}
-              >
-                {tag}
-              </button>
-            ))}
+            {(selectedTags.length > 0 ? selectedTags : AVAILABLE_TAGS).map(
+              (tag) => (
+                <button
+                  key={tag}
+                  onClick={() => toggleTag(tag)}
+                  className={`px-3 py-1 rounded-full border text-sm ${
+                    selected.includes(tag)
+                      ? "bg-[#364842] text-[#cbdcd4]"
+                      : "bg-[#ecf5f1] text-[#364842]"
+                  }`}
+                >
+                  {tag}
+                </button>
+              )
+            )}
           </div>
 
           <div className="flex justify-end gap-4 mt-4">

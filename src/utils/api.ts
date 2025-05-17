@@ -172,16 +172,58 @@ export const searchMulti = cache(async (query: string) => {
   return filteredResults;
 });
 
-// // 영문. 한글번역 안됨
+// 영문. 한글번역 안됨
 // export const fetchKeywords = async (id: string, category: string) => {
 //   if (!id || !category) {
 //     console.warn("Invalid id or category for fetchKeywords:", { id, category });
 //     return [];
 //   }
 //   const res = await fetch(
-//     `https://api.themoviedb.org/3/${category}/${id}/keywords?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`
+//     `https://api.themoviedb.org/3/${category}/${id}/keywords?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&language=ko-KR`
 //   );
 //   const data = await res.json();
 //   console.log(data);
 //   return data.keywords?.map((k: any) => k.name) || [];
 // };
+
+export const fetchContentsByTags = cache(
+  async (genreNames: string[], category: "movie" | "tv") => {
+    const genreMap: Record<string, number> = {
+      액션: 28,
+      모험: 12,
+      애니메이션: 16,
+      코미디: 35,
+      범죄: 80,
+      다큐멘터리: 99,
+      드라마: 18,
+      가족: 10751,
+      판타지: 14,
+      역사: 36,
+      공포: 27,
+      음악: 10402,
+      미스터리: 9648,
+      로맨스: 10749,
+      SF: 878,
+      TV영화: 10770,
+      스릴러: 53,
+      전쟁: 10752,
+      서부: 37,
+    };
+
+    const genreIds = genreNames
+      .map((name) => genreMap[name])
+      .filter((id): id is number => !!id);
+    console.log(genreIds);
+
+    if (genreIds.length === 0) return [];
+
+    const res = await fetch(
+      `https://api.themoviedb.org/3/discover/${category}?api_key=${
+        process.env.NEXT_PUBLIC_TMDB_API_KEY
+      }&language=ko-KR&with_genres=${genreIds.join(",")}`
+    );
+    const data = await res.json();
+
+    return data.results;
+  }
+);

@@ -10,7 +10,7 @@ type Props = {
 const ContentCard: React.FC<Props> = ({ content, category, className }) => {
   return (
     <Link href={`/${category}/${content.id}`} className="flex-shrink-0">
-      <div className="max-w-[200px]">
+      <div className="max-w-full">
         <div
           className={`relative mx-auto ${
             className
