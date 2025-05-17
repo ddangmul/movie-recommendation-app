@@ -3,8 +3,8 @@
 import { ContentWithRating } from "../types/types";
 
 import { createContext, useContext, useEffect, useState } from "react";
-import { fetchKeywords } from "../utils/api";
 import { useTags } from "./tag-context";
+import { saveGenres } from "../utils/helper";
 
 const RatingContext = createContext<{
   ratings: ContentWithRating[];
@@ -26,8 +26,8 @@ export function RatingProvider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
-  const setRating = async (content: any, category: string, rating: number) => {
-    await setRatings((prev) => {
+  const setRating = (content: any, category: string, rating: number) => {
+    setRatings((prev) => {
       const ratedContent: ContentWithRating = { ...content, category, rating };
       const filtered = prev.filter((item) => item.id !== content.id);
       const updatedRatings = [...filtered, ratedContent];
@@ -35,16 +35,7 @@ export function RatingProvider({ children }: { children: React.ReactNode }) {
       return updatedRatings;
     });
 
-    try {
-      // 맞춤태그용 장르 저장
-      const genres = content.genres?.map((genre: any) => genre.name) || [];
-      console.log(genres);
-      if (genres.length) {
-        setSelectedTags([...selectedTags, ...genres]);
-      }
-    } catch (err) {
-      console.log("TMDB 키워드 태그 불러오기 실패", err);
-    }
+    saveGenres(content, selectedTags, setSelectedTags);
   };
 
   return (

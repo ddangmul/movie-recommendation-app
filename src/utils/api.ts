@@ -172,17 +172,16 @@ export const searchMulti = cache(async (query: string) => {
   return filteredResults;
 });
 
-export const fetchKeywords = async (id: string, category: string) => {
-  console.log("📦 fetchKeywords 호출됨", { id, category });
-
-  if (!id || !category) {
-    console.warn("Invalid id or category for fetchKeywords:", { id, category });
-    return [];
-  }
-  const res = await fetch(
-    `https://api.themoviedb.org/3/${category}/${id}/keywords?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`
-  );
-  const data = await res.json();
-  console.log(data);
-  return data.keywords?.map((k: any) => k.name) || [];
-};
+// // 영문. 한글번역 안됨
+// export const fetchKeywords = async (id: string, category: string) => {
+//   if (!id || !category) {
+//     console.warn("Invalid id or category for fetchKeywords:", { id, category });
+//     return [];
+//   }
+//   const res = await fetch(
+//     `https://api.themoviedb.org/3/${category}/${id}/keywords?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`
+//   );
+//   const data = await res.json();
+//   console.log(data);
+//   return data.keywords?.map((k: any) => k.name) || [];
+// };

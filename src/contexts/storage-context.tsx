@@ -2,6 +2,8 @@
 
 import { WishContent } from "../types/types";
 import { createContext, useContext, useState, useEffect } from "react";
+import { useTags } from "./tag-context";
+import { saveGenres } from "../utils/helper";
 
 type StorageMap = WishContent[];
 
@@ -21,6 +23,7 @@ const storageContext = createContext<{
 
 export function StorageProvider({ children }: { children: React.ReactNode }) {
   const [storage, setStorage] = useState<StorageMap>([]);
+  const { selectedTags, setSelectedTags } = useTags();
 
   useEffect(() => {
     const storedRatings = localStorage.getItem(STORAGE_KEY);
@@ -43,6 +46,7 @@ export function StorageProvider({ children }: { children: React.ReactNode }) {
       const newContent = { ...content, category };
       updateStorage([...storage, newContent]);
     }
+    saveGenres(content, selectedTags, setSelectedTags);
   };
 
   const deleteFromStorage = (content: WishContent) => {
