@@ -4,6 +4,7 @@ import "../styles/globals.css";
 import Footer from "../components/footer";
 import { RatingProvider } from "../contexts/rating-context";
 import { StorageProvider } from "../contexts/storage-context";
+import { TagProvider } from "../contexts/tag-context";
 
 export const metadata: Metadata = {
   title: "REEL PICK | 영화 추천 서비스",
@@ -22,13 +23,15 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <div className="min-h-screen">
-          <StorageProvider>
-            <RatingProvider>
-              <MainHeader />
-              {children}
-              <Footer />
-            </RatingProvider>
-          </StorageProvider>
+          <TagProvider>
+            <StorageProvider>
+              <RatingProvider>
+                <MainHeader />
+                {children}
+                <Footer />
+              </RatingProvider>
+            </StorageProvider>
+          </TagProvider>
         </div>
       </body>
     </html>
