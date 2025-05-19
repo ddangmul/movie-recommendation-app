@@ -43,7 +43,7 @@ export default function TagResults({
     <section className="mt-10 flex w-full justify-center items-center ">
       {loading && <p className="text-gray-500">로딩 중...</p>}
       {error && <p className="text-red-500">{error}</p>}
-      <ul className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
+      <ul className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-7 gap-4 md:gap-8">
         {contents.map((content) => (
           <li key={content.id} className="flex justify-center">
             <ContentCard content={content} category={category} />
