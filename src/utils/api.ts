@@ -231,9 +231,12 @@ export async function fetchRecommendationsByGenreIds(
   const url = `https://api.themoviedb.org/3/discover/${category}?api_key=${
     process.env.NEXT_PUBLIC_TMDB_API_KEY
   }&with_genres=${genreIds.join(",")}&language=ko-KR`;
+
   const res = await fetch(url);
+
   const data = await res.json();
 
   if (!data) return null;
+
   return data.results;
 }
