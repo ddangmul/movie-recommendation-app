@@ -15,7 +15,7 @@ export default async function ContentTypePage({ params }: { params: Props }) {
     content = (
       <>
         <PersonalTab />
-        <PersonalizedRecommendations category="movie" />
+        <PersonalizedRecommendations />
         <ContentsSection pathname="movie/popular?language=ko-KR" topic="HOT" />
         <ContentsSection
           pathname="discover/movie?with_original_language=ko&language=ko-KR&vote_average.gte=8&sort_by=popularity.desc"

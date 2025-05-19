@@ -4,6 +4,7 @@ import { useTags } from "@/src/contexts/tag-context";
 import TagSelectorModal from "@/src/components/tag-selector-modal";
 import TagResults from "@/src/components/tag-results";
 import Link from "next/link";
+import PersonalizedRecommendations from "@/src/components/personalized-contents";
 
 const RecommendationsPage: React.FC = () => {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -57,7 +58,10 @@ const RecommendationsPage: React.FC = () => {
           시리즈
         </button>
       </div>
-      <TagResults tags={selectedTags} category={mediaType} />
+      <div className="mt-10">
+        {selectedTags.length <= 0 && <PersonalizedRecommendations />}
+        <TagResults tags={selectedTags} category={mediaType} />
+      </div>
       <TagSelectorModal
         isOpen={isModalOpen}
         onClose={() => setModalOpen(false)}
