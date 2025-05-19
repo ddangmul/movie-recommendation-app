@@ -32,7 +32,7 @@ export default async function DetailContentPage({
   const similarContents = await fetchSimilarContents(category, id);
   const stills = await fetchStills(category, id);
 
-  if (!content || !overview || !credits || !similarContents || stills)
+  if (!content || !overview || !credits || !similarContents || !stills)
     return notFound();
 
   return (
