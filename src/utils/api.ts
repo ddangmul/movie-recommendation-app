@@ -1,5 +1,6 @@
 import { cache } from "react";
-import { BASE_URL, TMDB_BEARER_TOKEN } from "./constants";
+import { BASE_URL, TMDB_BEARER_TOKEN, GENRE_MAP } from "./constants";
+import { Person, TMDBContent } from "../types/types";
 
 export async function fetchTMDB(pathname: string) {
   const res = await fetch(`${BASE_URL}/${pathname}`, {
@@ -16,8 +17,10 @@ export async function fetchTMDB(pathname: string) {
 
   const data = await res.json();
 
+  if (data.results.lengths <= 0) return null;
+
   const filteredResults = data.results.filter(
-    (item: any) =>
+    (item: TMDBContent) =>
       (item.title || item.name) &&
       item.backdrop_path &&
       item.poster_path &&
@@ -43,6 +46,9 @@ export const fetchContentsById = cache(async (category: string, id: string) => {
   }
 
   const data = await res.json();
+
+  if (!data) return null;
+
   return data;
 });
 
@@ -60,6 +66,9 @@ export const fetchKoreanOverview = cache(
     }
 
     const data = await res.json();
+
+    if (!data.overview) return null;
+
     return data.overview;
   }
 );
@@ -89,15 +98,17 @@ export const fetchCredits = cache(async (category: string, id: string) => {
   const data = await res.json();
   const dataJob = await resJob.json();
 
+  if (!data || !dataJob) return null;
+
   return {
-    cast: data.cast.slice(0, 5).map((person: any, idx: number) => {
+    cast: data.cast.slice(0, 5).map((person: Person, idx: number) => {
       const koreanPerson = dataJob.cast[idx];
       return {
         ...person,
         character: koreanPerson?.character || person.character,
       };
     }),
-    directors: data.crew.filter((person: any) => person.job === "Director"),
+    directors: data.crew.filter((person: Person) => person.job === "Director"),
   };
 });
 
@@ -117,6 +128,9 @@ export const fetchSimilarContents = async (category: string, id: string) => {
   }
 
   const data = await res.json();
+
+  if (!data) return null;
+
   return data.results;
 };
 
@@ -136,6 +150,9 @@ export const fetchStills = async (category: string, id: string) => {
   }
 
   const data = await res.json();
+
+  if (!data.backdrops) return null;
+
   return data.backdrops.slice(0, 10);
 };
 
@@ -159,14 +176,16 @@ export const searchMulti = cache(async (query: string) => {
 
   const data = await res.json();
 
+  if (!data) return null;
+
   const filteredResults = data.results.filter(
-    (item: any) =>
-      (item.title || item.name) &&
-      item.backdrop_path &&
-      item.poster_path &&
-      item.overview &&
-      item.vote_average &&
-      item.vote_average !== 0
+    (content: TMDBContent) =>
+      (content.title || content.name) &&
+      content.backdrop_path &&
+      content.poster_path &&
+      content.overview &&
+      content.vote_average &&
+      content.vote_average !== 0
   );
 
   return filteredResults;
@@ -188,30 +207,8 @@ export const searchMulti = cache(async (query: string) => {
 
 export const fetchContentsByTags = cache(
   async (genreNames: string[], category: string) => {
-    const genreMap: Record<string, number> = {
-      액션: 28,
-      모험: 12,
-      애니메이션: 16,
-      코미디: 35,
-      범죄: 80,
-      다큐멘터리: 99,
-      드라마: 18,
-      가족: 10751,
-      판타지: 14,
-      역사: 36,
-      공포: 27,
-      음악: 10402,
-      미스터리: 9648,
-      로맨스: 10749,
-      SF: 878,
-      TV영화: 10770,
-      스릴러: 53,
-      전쟁: 10752,
-      서부: 37,
-    };
-
     const genreIds = genreNames
-      .map((name) => genreMap[name])
+      .map((name) => GENRE_MAP[name])
       .filter((id): id is number => !!id);
     console.log(genreIds);
 
@@ -223,6 +220,8 @@ export const fetchContentsByTags = cache(
       }&language=ko-KR&with_genres=${genreIds.join(",")}`
     );
     const data = await res.json();
+
+    if (!data) return null;
 
     return data.results;
   }
@@ -237,5 +236,7 @@ export async function fetchRecommendationsByGenreIds(
   }&with_genres=${genreIds.join(",")}&language=ko-KR`;
   const res = await fetch(url);
   const data = await res.json();
+
+  if (!data) return null;
   return data.results;
 }

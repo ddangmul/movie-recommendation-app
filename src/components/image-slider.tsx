@@ -2,10 +2,11 @@
 import { useRef } from "react";
 import { LucideChevronLeft, LucideChevronRight } from "lucide-react";
 import Image from "next/image";
+import { Still } from "../types/types";
 
 const ImageSlider: React.FC<{
-  images: any;
-}> = ({ images }) => {
+  stills: Still[];
+}> = ({ stills }) => {
   const listRef = useRef<HTMLUListElement>(null);
 
   const scrollleft = () => {
@@ -40,19 +41,23 @@ const ImageSlider: React.FC<{
         ref={listRef}
         className="flex overflow-x-hidden scroll-smooth gap-2 md:gap-4"
       >
-        {images.map((image: any) => (
-          <li key={image.file_path}>
-            <div className="relative w-[300px] h-[200px]">
-              <Image
-                src={`https://image.tmdb.org/t/p/original${image.file_path}`}
-                alt={`${image.id} 스틸 이미지`}
-                fill
-                className="object-cover rounded-md"
-                sizes="150px"
-              />
-            </div>
-          </li>
-        ))}
+        {!stills ? (
+          <p>스틸 이미지가 없습니다.</p>
+        ) : (
+          stills.map((image: Still) => (
+            <li key={image.file_path}>
+              <div className="relative w-[300px] h-[200px]">
+                <Image
+                  src={`https://image.tmdb.org/t/p/original${image.file_path}`}
+                  alt={`${image.id} 스틸 이미지`}
+                  fill
+                  className="object-cover rounded-md"
+                  sizes="150px"
+                />
+              </div>
+            </li>
+          ))
+        )}
       </ul>
     </div>
   );

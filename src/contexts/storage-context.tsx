@@ -1,19 +1,19 @@
 "use client";
 
-import { WishContent } from "../types/types";
+import { TMDBContent } from "../types/types";
 import { createContext, useContext, useState, useEffect } from "react";
 import { useTags } from "./tag-context";
 import { saveGenres } from "../utils/helper";
 
-type StorageMap = WishContent[];
+type StorageMap = TMDBContent[];
 
 const STORAGE_KEY = "STORAGE";
 
 const storageContext = createContext<{
   storage: StorageMap;
-  addToStorage: (content: WishContent, category: string) => void;
-  deleteFromStorage: (content: WishContent) => void;
-  isInStorage: (content: WishContent) => boolean;
+  addToStorage: (content: TMDBContent, category: string) => void;
+  deleteFromStorage: (content: TMDBContent) => void;
+  isInStorage: (content: TMDBContent) => boolean;
 }>({
   storage: [],
   addToStorage: () => {},
@@ -41,7 +41,7 @@ export function StorageProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
   };
 
-  const addToStorage = (content: WishContent, category: string) => {
+  const addToStorage = (content: TMDBContent, category: string) => {
     if (!storage.some((item) => item.id === content.id)) {
       const newContent = { ...content, category };
       updateStorage([...storage, newContent]);
@@ -49,11 +49,11 @@ export function StorageProvider({ children }: { children: React.ReactNode }) {
     saveGenres(content, savedTags, setSavedTags);
   };
 
-  const deleteFromStorage = (content: WishContent) => {
+  const deleteFromStorage = (content: TMDBContent) => {
     updateStorage(storage.filter((cont) => cont.id !== content.id));
   };
 
-  const isInStorage = (content: WishContent) => {
+  const isInStorage = (content: TMDBContent) => {
     return storage.some((item) => item.id === content.id);
   };
 

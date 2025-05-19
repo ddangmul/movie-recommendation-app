@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { fetchContentsByTags } from "../utils/api";
 import ContentCard from "./contents/content-card";
+import { TMDBContent } from "../types/types";
 
 export default function TagResults({
   tags,
@@ -11,7 +12,7 @@ export default function TagResults({
   tags: string[];
   category: string;
 }) {
-  const [contents, setContents] = useState<any[]>([]);
+  const [contents, setContents] = useState<TMDBContent[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,9 +21,9 @@ export default function TagResults({
     };
 
     if (tags.length) fetchData();
-    console.log(contents);
   }, [tags]);
 
+  // media_type 없음 (보완 필요)
   const filteredResults =
     category === "movie"
       ? contents.filter((content) => content.media_type === "movie")

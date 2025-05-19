@@ -4,9 +4,10 @@ import Image from "next/image";
 import Rating from "../rating";
 import { useState } from "react";
 import Storage from "../storage";
+import { TMDBContent } from "@/src/types/types";
 
 type Props = {
-  content: any;
+  content: TMDBContent;
   overview: string;
   category: string;
 };

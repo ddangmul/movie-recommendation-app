@@ -4,6 +4,7 @@ import { searchMulti } from "@/src/utils/api";
 import { useEffect, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import ContentCard from "@/src/components/contents/content-card";
+import { TMDBContent } from "@/src/types/types";
 
 export default function SearchPage() {
   const router = useRouter();
@@ -31,9 +32,11 @@ export default function SearchPage() {
   const filteredResults =
     mediaType === "all"
       ? searchResult
-      : searchResult.filter((item: any) => item.media_type === mediaType);
+      : searchResult.filter(
+          (content: TMDBContent) => content.media_type === mediaType
+        );
 
-  const handleClick = (content: any) => {
+  const handleClick = (content: TMDBContent) => {
     router.push(`/${content.media_type}/${content.id}`);
   };
 
@@ -74,17 +77,13 @@ export default function SearchPage() {
       </div>
       <section className="mt-4">
         <ul className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-2 md:gap-3 lg:gap-10">
-          {filteredResults.map((content: any) => (
+          {filteredResults.map((content: TMDBContent) => (
             <li
               key={content.poster_path}
               className="mt-6 mx-0"
               onClick={() => handleClick(content)}
             >
-              <ContentCard
-                content={content}
-                category={content.media_type}
-                className="w-[360px] h-[540px]"
-              />
+              <ContentCard content={content} category={content.media_type} />
             </li>
           ))}
         </ul>

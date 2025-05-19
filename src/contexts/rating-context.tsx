@@ -1,18 +1,17 @@
 "use client";
 
-import { ContentWithRating } from "../types/types";
-
+import { TMDBContent } from "../types/types";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useTags } from "./tag-context";
 import { saveGenres } from "../utils/helper";
 
 const RatingContext = createContext<{
-  ratings: ContentWithRating[];
-  setRating: (contentId: string, category: string, rating: number) => void;
+  ratings: TMDBContent[];
+  setRating: (content: TMDBContent, category: string, rating: number) => void;
 }>({ ratings: [], setRating: () => {} });
 
 export function RatingProvider({ children }: { children: React.ReactNode }) {
-  const [ratings, setRatings] = useState<ContentWithRating[]>([]);
+  const [ratings, setRatings] = useState<TMDBContent[]>([]);
   const { savedTags, setSavedTags } = useTags();
 
   useEffect(() => {
@@ -26,9 +25,13 @@ export function RatingProvider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
-  const setRating = (content: any, category: string, rating: number) => {
+  const setRating = (
+    content: TMDBContent,
+    category: string,
+    rating: number
+  ) => {
     setRatings((prev) => {
-      const ratedContent: ContentWithRating = { ...content, category, rating };
+      const ratedContent: TMDBContent = { ...content, category, rating };
       const filtered = prev.filter((item) => item.id !== content.id);
       const updatedRatings = [...filtered, ratedContent];
       localStorage.setItem("RATINGS", JSON.stringify(updatedRatings));

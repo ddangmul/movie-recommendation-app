@@ -1,8 +1,9 @@
+import { TMDBContent } from "@/src/types/types";
 import ContentsSlider from "../contents/contents-slider";
 
 type Props = {
-  content: any;
-  contents: any;
+  content: TMDBContent;
+  contents: TMDBContent[];
   category: string;
 };
 

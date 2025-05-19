@@ -1,7 +1,8 @@
 import Image from "next/image";
+import { Person } from "@/src/types/types";
 
 type Props = {
-  credits: any;
+  credits: Person[];
   category: string;
 };
 
@@ -10,7 +11,7 @@ export default function Credits({ credits, category }: Props) {
     <section>
       <h3 className="text-md font-semibold mb-8">출연/제작</h3>
       <ul className="grid grid-cols-2 grid-rows-3 gap-4">
-        {credits.map((person: any) => (
+        {credits.map((person: Person) => (
           <li key={person.id} className="flex gap-4">
             <div className="relative w-[70px] aspect-[2/3]">
               <Image

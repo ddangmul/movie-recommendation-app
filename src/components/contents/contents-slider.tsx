@@ -2,9 +2,10 @@
 import { useRef } from "react";
 import ContentCard from "./content-card";
 import { LucideChevronLeft, LucideChevronRight } from "lucide-react";
+import { TMDBContent } from "@/src/types/types";
 
 const ContentsSlider: React.FC<{
-  contents: any;
+  contents: TMDBContent[];
   category: string;
 }> = ({ contents, category }) => {
   const listRef = useRef<HTMLUListElement>(null);
@@ -44,8 +45,8 @@ const ContentsSlider: React.FC<{
         className="flex overflow-x-hidden scroll-smooth gap-2 md:gap-4 h-[450px]"
       >
         {contents
-          .filter((content: any) => !!content.poster_path)
-          .map((content: any) => (
+          .filter((content: TMDBContent) => !!content.poster_path)
+          .map((content: TMDBContent) => (
             <li key={content.id}>
               <ContentCard
                 content={content}

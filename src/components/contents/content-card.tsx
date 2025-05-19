@@ -1,17 +1,20 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Star } from "lucide-react";
+import { TMDBContent } from "@/src/types/types";
 
 type Props = {
-  content: any;
-  category: string;
-} & React.HTMLAttributes<string>;
+  content: TMDBContent;
+  category: string | undefined;
+};
 
-const ContentCard: React.FC<Props> = ({ content, category, className }) => {
+const SIZE = "w-[220px] md:w-[200px] lg:w-[180px]";
+
+const ContentCard: React.FC<Props> = ({ content, category }) => {
   return (
     <Link href={`/${category}/${content.id}`} className="block">
-      <div className="w-full">
-        <div className="relative w-[220px] md:w-[200px] lg:w-[180px] aspect-[2/3]">
+      <div className="w-full flex flex-col">
+        <div className={`relative ${SIZE} aspect-[2/3]`}>
           <Image
             src={`https://image.tmdb.org/t/p/w500${content.poster_path}`}
             alt={content.id}
@@ -20,8 +23,8 @@ const ContentCard: React.FC<Props> = ({ content, category, className }) => {
             sizes="(min-width: 1024px) 220px, 100vw"
           />
         </div>
-        <div className="text-left text-sm mt-2">
-          <h3 className="overflow-hidden text-ellipsis">
+        <div className={`text-left text-sm mt-2 ${SIZE}`}>
+          <h3 className="w-full whitespace-nowrap overflow-hidden text-ellipsis block">
             {content.title || content.name}
           </h3>
           <div className="flex gap-1 items-center">

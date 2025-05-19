@@ -1,13 +1,13 @@
 import { PlusIcon } from "lucide-react";
 import { XIcon } from "lucide-react";
 import { useStorage } from "../contexts/storage-context";
-import { WishContent } from "../types/types";
+import { TMDBContent } from "../types/types";
 
 export default function Storage({
   content,
   category,
 }: {
-  content: WishContent;
+  content: TMDBContent;
   category: string;
 }) {
   const { addToStorage, deleteFromStorage, isInStorage } = useStorage();

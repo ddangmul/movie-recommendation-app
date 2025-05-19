@@ -10,6 +10,8 @@ import {
   fetchSimilarContents,
   fetchStills,
 } from "@/src/utils/api";
+import { CreditsByApi, TMDBContent } from "@/src/types/types";
+import { notFound } from "next/navigation";
 
 type Props = {
   params: {
@@ -21,12 +23,16 @@ type Props = {
 export default async function DetailContentPage({ params }: Props) {
   const { category, id } = await params;
 
-  const content = await fetchContentsById(category, id);
+  const content: TMDBContent = await fetchContentsById(category, id);
   const overview = await fetchKoreanOverview(category, id);
   const credits = await fetchCredits(category, id);
-  const people = [...credits.directors, ...credits.cast];
+  const people = [...credits?.directors, ...credits?.cast];
   const similarContents = await fetchSimilarContents(category, id);
   const stills = await fetchStills(category, id);
+
+  if (!content || !overview || !credits || !similarContents || stills)
+    notFound();
+
   return (
     <div>
       <BackDropSection content={content} />
