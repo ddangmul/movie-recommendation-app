@@ -1,9 +1,13 @@
 import { cache } from "react";
-import { BASE_URL, TMDB_BEARER_TOKEN, GENRE_MAP } from "./constants";
+import {
+  NEXT_PUBLIC_BASE_URL,
+  TMDB_BEARER_TOKEN,
+  GENRE_MAP,
+} from "./constants";
 import { Person, TMDBContent } from "../types/types";
 
 export async function fetchTMDB(pathname: string) {
-  const res = await fetch(`${BASE_URL}/${pathname}`, {
+  const res = await fetch(`${NEXT_PUBLIC_BASE_URL}/${pathname}`, {
     method: "GET",
     headers: {
       accept: "application/json",
@@ -33,13 +37,16 @@ export async function fetchTMDB(pathname: string) {
 }
 
 export const fetchContentsById = cache(async (category: string, id: string) => {
-  const res = await fetch(`${BASE_URL}/${category}/${id}?language=ko-KR`, {
-    method: "GET",
-    headers: {
-      accept: "application/json",
-      Authorization: `Bearer ${TMDB_BEARER_TOKEN}`,
-    },
-  });
+  const res = await fetch(
+    `${NEXT_PUBLIC_BASE_URL}/${category}/${id}?language=ko-KR`,
+    {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${TMDB_BEARER_TOKEN}`,
+      },
+    }
+  );
 
   if (!res.ok) {
     throw new Error(`TMDB fetch error: ${res.status}`);
@@ -54,12 +61,15 @@ export const fetchContentsById = cache(async (category: string, id: string) => {
 
 export const fetchKoreanOverview = cache(
   async (category: string, id: string) => {
-    const res = await fetch(`${BASE_URL}/${category}/${id}?language=ko-KR`, {
-      headers: {
-        Authorization: `Bearer ${TMDB_BEARER_TOKEN}`,
-        accept: "application/json",
-      },
-    });
+    const res = await fetch(
+      `${NEXT_PUBLIC_BASE_URL}/${category}/${id}?language=ko-KR`,
+      {
+        headers: {
+          Authorization: `Bearer ${TMDB_BEARER_TOKEN}`,
+          accept: "application/json",
+        },
+      }
+    );
 
     if (!res.ok) {
       throw new Error(`한국어 overview 정보 불러오기 실패`);
@@ -74,7 +84,7 @@ export const fetchKoreanOverview = cache(
 );
 
 export const fetchCredits = cache(async (category: string, id: string) => {
-  const res = await fetch(`${BASE_URL}/${category}/${id}/credits`, {
+  const res = await fetch(`${NEXT_PUBLIC_BASE_URL}/${category}/${id}/credits`, {
     headers: {
       Authorization: `Bearer ${TMDB_BEARER_TOKEN}`,
       accept: "application/json",
@@ -82,7 +92,7 @@ export const fetchCredits = cache(async (category: string, id: string) => {
   });
 
   const resJob = await fetch(
-    `${BASE_URL}/${category}/${id}/credits?language=ko-KR`,
+    `${NEXT_PUBLIC_BASE_URL}/${category}/${id}/credits?language=ko-KR`,
     {
       headers: {
         Authorization: `Bearer ${TMDB_BEARER_TOKEN}`,
@@ -114,7 +124,7 @@ export const fetchCredits = cache(async (category: string, id: string) => {
 
 export const fetchSimilarContents = async (category: string, id: string) => {
   const res = await fetch(
-    `${BASE_URL}/${category}/${id}/similar?language=ko-KR`,
+    `${NEXT_PUBLIC_BASE_URL}/${category}/${id}/similar?language=ko-KR`,
     {
       headers: {
         Authorization: `Bearer ${TMDB_BEARER_TOKEN}`,

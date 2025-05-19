@@ -1,7 +1,7 @@
-export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+export const NEXT_PUBLIC_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 export const TMDB_BEARER_TOKEN = process.env.TMDB_BEARER_TOKEN;
 
-if (!BASE_URL) {
+if (!NEXT_PUBLIC_BASE_URL) {
   throw new Error("Missing BASE_URL in environment variables.");
 }
 
