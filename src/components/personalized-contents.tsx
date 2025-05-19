@@ -20,7 +20,9 @@ export default function PersonalizedRecommendations() {
 
     const fetchData = async () => {
       try {
-        const genres = getTopGenres(ratedContents);
+        const genres = getTopGenres(ratedContents).map((genre) =>
+          String(genre)
+        );
         if (genres.length === 0) {
           setRecommendations([]);
           return;
@@ -43,9 +45,7 @@ export default function PersonalizedRecommendations() {
 
   return (
     <div className="space-y-2">
-      <h1 className="text-lg font-semibold">
-        높은 점수를 준 작품들과 유사한 컨텐츠
-      </h1>
+      <h1 className="text-lg font-semibold">당신의 취향과 일치하는 작품</h1>
       {error && <p className="text-red-500">{error}</p>}
       <ContentsSlider contents={recommendations} category="movie" />
     </div>

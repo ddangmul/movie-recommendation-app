@@ -1,5 +1,6 @@
 import ContentsSection from "@/src/components/contents/contents-section";
 import PersonalTab from "@/src/components/personal-tap";
+import PersonalizedRecommendations from "@/src/components/personalized-contents";
 
 type Props = Promise<{
   category: string;
@@ -14,6 +15,7 @@ export default async function ContentTypePage({ params }: { params: Props }) {
     content = (
       <>
         <PersonalTab />
+        <PersonalizedRecommendations category="movie" />
         <ContentsSection pathname="movie/popular?language=ko-KR" topic="HOT" />
         <ContentsSection
           pathname="discover/movie?with_original_language=ko&language=ko-KR&vote_average.gte=8&sort_by=popularity.desc"

@@ -4,6 +4,7 @@ import { Person, TMDBContent } from "../types/types";
 
 const NEXT_PUBLIC_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 const TMDB_BEARER_TOKEN = process.env.NEXT_PUBLIC_TMDB_BEARER_TOKEN;
+const NEXT_PUBLIC_TMDB_API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY;
 
 export async function fetchTMDB(pathname: string) {
   const res = await fetch(`${NEXT_PUBLIC_BASE_URL}/${pathname}`, {
@@ -234,18 +235,38 @@ export const fetchContentsByTags = cache(
 );
 
 export async function fetchRecommendationsByGenreIds(
-  genreIds: number[],
+  genres: string[],
   category: "movie" | "tv"
 ) {
-  const url = `https://api.themoviedb.org/3/discover/${category}?api_key=${
-    process.env.NEXT_PUBLIC_TMDB_API_KEY
-  }&with_genres=${genreIds.join(",")}&language=ko-KR`;
+  if (genres.length === 0) return [];
 
-  const res = await fetch(url);
+  let combinedResults: TMDBContent[] = [];
 
-  const data = await res.json();
+  for (const genreId of genres) {
+    const url = `https://api.themoviedb.org/3/discover/${category}?api_key=${NEXT_PUBLIC_TMDB_API_KEY}&with_genres=${genreId}&language=ko-KR`;
+    const res = await fetch(url);
+    if (!res.ok) continue;
 
-  if (!data) return null;
+    const data = await res.json();
+    if (!data || !data.results) continue;
 
-  return data.results;
+    const filteredResults = data.results.filter(
+      (item: TMDBContent) =>
+        (item.title || item.name) &&
+        item.backdrop_path &&
+        item.poster_path &&
+        item.overview &&
+        item.vote_average &&
+        item.vote_average !== 0
+    );
+
+    combinedResults = combinedResults.concat(filteredResults);
+  }
+
+  const uniqueResultsMap = new Map<number, TMDBContent>();
+  combinedResults.forEach((item) =>
+    uniqueResultsMap.set(Number(item.id), item)
+  );
+
+  return Array.from(uniqueResultsMap.values());
 }
