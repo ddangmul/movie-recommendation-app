@@ -1,14 +1,11 @@
 import ContentsSection from "@/src/components/contents/contents-section";
 import PersonalTab from "@/src/components/personal-tap";
 
-type Props = {
-  params: {
-    category: string;
-    id: string;
-  };
-};
+type Props = Promise<{
+  category: string;
+}>;
 
-export default async function ContentTypePage({ params }: Props) {
+export default async function ContentTypePage({ params }: { params: Props }) {
   const { category } = await params;
 
   let content;

@@ -13,17 +13,17 @@ import {
 import { TMDBContent } from "@/src/types/types";
 import { notFound } from "next/navigation";
 
-type PageParams = {
+type PageParams = Promise<{
   category: string;
   id: string;
-};
+}>;
 
 export default async function DetailContentPage({
   params,
 }: {
   params: PageParams;
 }) {
-  const { id, category } = params;
+  const { id, category } = await params;
 
   const content: TMDBContent = await fetchContentsById(category, id);
   const overview = await fetchKoreanOverview(category, id);
