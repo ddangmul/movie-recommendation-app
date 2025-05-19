@@ -17,7 +17,7 @@ export async function fetchTMDB(pathname: string) {
 
   const data = await res.json();
 
-  if (data.results.lengths <= 0) return null;
+  if (data.results.length <= 0) return null;
 
   const filteredResults = data.results.filter(
     (item: TMDBContent) =>
