@@ -1,10 +1,9 @@
 import { cache } from "react";
-import {
-  NEXT_PUBLIC_BASE_URL,
-  TMDB_BEARER_TOKEN,
-  GENRE_MAP,
-} from "./constants";
+import { GENRE_MAP } from "./constants";
 import { Person, TMDBContent } from "../types/types";
+
+const NEXT_PUBLIC_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+const TMDB_BEARER_TOKEN = process.env.NEXT_PUBLIC_TMDB_BEARER_TOKEN;
 
 export async function fetchTMDB(pathname: string) {
   const res = await fetch(`${NEXT_PUBLIC_BASE_URL}/${pathname}`, {

@@ -1,13 +1,13 @@
-export const NEXT_PUBLIC_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
-export const TMDB_BEARER_TOKEN = process.env.NEXT_PUBLIC_TMDB_BEARER_TOKEN;
+// export const NEXT_PUBLIC_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+// export const TMDB_BEARER_TOKEN = process.env.TMDB_BEARER_TOKEN;
 
-if (!NEXT_PUBLIC_BASE_URL) {
-  throw new Error("Missing BASE_URL in environment variables.");
-}
+// if (!NEXT_PUBLIC_BASE_URL) {
+//   throw new Error("Missing BASE_URL in environment variables.");
+// }
 
-if (!TMDB_BEARER_TOKEN) {
-  throw new Error("Missing TMDB_BEARER_TOKEN in environment variables.");
-}
+// if (!TMDB_BEARER_TOKEN) {
+//   throw new Error("Missing TMDB_BEARER_TOKEN in environment variables.");
+// }
 
 export const GENRE_MAP: Record<string, number> = {
   액션: 28,
