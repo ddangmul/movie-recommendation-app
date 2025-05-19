@@ -19,7 +19,7 @@ const RecommendationsPage: React.FC = () => {
         <div className="flex justify-end">
           <button
             onClick={() => setModalOpen(true)}
-            className="bg-[#cbdcd4] text-[#364842] px-2 py-1 rounded"
+            className="bg-[#303030] text-white px-2 py-1 rounded"
           >
             태그 설정
           </button>
@@ -28,7 +28,7 @@ const RecommendationsPage: React.FC = () => {
           {selectedTags.map((tag) => (
             <span
               key={tag}
-              className="px-2 py-1 bg-[#cbdcd4] text-[#364842] rounded-full text-sm"
+              className="px-2 py-1 bg-[#f2f2f2] text-[#3c3c3c] rounded-full text-sm"
             >
               #{tag}
             </span>

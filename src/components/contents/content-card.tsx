@@ -11,9 +11,7 @@ const ContentCard: React.FC<Props> = ({ content, category, className }) => {
   return (
     <Link href={`/${category}/${content.id}`} className="block">
       <div className="w-full">
-        <div
-          className={`relative w-[220px] md:w-[200px] lg:w-[180px] aspect-[2/3]`}
-        >
+        <div className="relative w-[220px] md:w-[200px] lg:w-[180px] aspect-[2/3]">
           <Image
             src={`https://image.tmdb.org/t/p/w500${content.poster_path}`}
             alt={content.id}

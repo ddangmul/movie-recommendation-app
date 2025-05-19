@@ -227,3 +227,15 @@ export const fetchContentsByTags = cache(
     return data.results;
   }
 );
+
+export async function fetchRecommendationsByGenreIds(
+  genreIds: number[],
+  category: "movie" | "tv"
+) {
+  const url = `https://api.themoviedb.org/3/discover/${category}?api_key=${
+    process.env.NEXT_PUBLIC_TMDB_API_KEY
+  }&with_genres=${genreIds.join(",")}&language=ko-KR`;
+  const res = await fetch(url);
+  const data = await res.json();
+  return data.results;
+}

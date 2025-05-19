@@ -58,8 +58,8 @@ export default function TagSelectorModal({
                 onClick={() => toggleTag(tag)}
                 className={`px-3 py-1 rounded-full border text-sm ${
                   selected.includes(tag)
-                    ? "bg-[#364842] text-[#cbdcd4]"
-                    : "bg-[#ecf5f1] text-[#364842]"
+                    ? "bg-[#303030] text-white"
+                    : "bg-[#f2f2f2] text-[#3c3c3c]"
                 }`}
               >
                 {tag}
@@ -70,13 +70,13 @@ export default function TagSelectorModal({
           <div className="flex justify-end gap-4 mt-4">
             <button
               onClick={onClose}
-              className="text-sm text-[#202c28] shadow-sm px-4 py-1 rounded"
+              className="text-sm bg-[#f2f2f2] text-[#3c3c3c] shadow-sm px-4 py-1 rounded"
             >
               취소
             </button>
             <button
               onClick={handleSave}
-              className="bg-[#cbdcd4] text-[#202c28] shadow-sm text-sm px-4 py-1 rounded"
+              className="bg-[#303030] text-white shadow-sm text-sm px-4 py-1 rounded"
             >
               적용
             </button>

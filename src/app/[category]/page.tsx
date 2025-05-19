@@ -35,6 +35,7 @@ export default async function ContentTypePage({ params }: Props) {
   } else if (category === "series") {
     content = (
       <>
+        <PersonalTab />
         <ContentsSection
           pathname="discover/tv?language=ko-KR&with_original_language=ko&sort_by=popularity.desc"
           topic="HOT 시리즈"
@@ -52,6 +53,8 @@ export default async function ContentTypePage({ params }: Props) {
   }
 
   return (
-    <div className="flex flex-col gap-8 px-4 md:px-6 lg:px-60">{content}</div>
+    <div className="flex flex-col px-4 md:px-6 lg:px-60 gap-40 md:gap-32 lg:gap-24">
+      {content}
+    </div>
   );
 }
