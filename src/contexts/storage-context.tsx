@@ -14,31 +14,40 @@ const storageContext = createContext<{
   addToStorage: (content: TMDBContent, category: string) => void;
   deleteFromStorage: (content: TMDBContent) => void;
   isInStorage: (content: TMDBContent) => boolean;
+  ratingError?: string | null;
 }>({
   storage: [],
   addToStorage: () => {},
   deleteFromStorage: () => {},
   isInStorage: () => false,
+  ratingError: null,
 });
 
 export function StorageProvider({ children }: { children: React.ReactNode }) {
   const [storage, setStorage] = useState<StorageMap>([]);
   const { savedTags, setSavedTags } = useTags();
+  const [ratingError, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const storedRatings = localStorage.getItem(STORAGE_KEY);
     if (storedRatings) {
       try {
         setStorage(JSON.parse(storedRatings));
+        setError(null);
       } catch (e) {
-        console.log("로컬스토리지에서 컨텐츠 저장목록 가져오기 실패");
+        setError("저장한 컨텐츠 목록 가져오기 실패");
       }
     }
   }, []);
 
   const updateStorage = (updated: StorageMap) => {
-    setStorage(updated);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+    try {
+      setStorage(updated);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+      setError(null);
+    } catch (e) {
+      setError("저장목록 갱신 실패");
+    }
   };
 
   const addToStorage = (content: TMDBContent, category: string) => {
@@ -59,7 +68,13 @@ export function StorageProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <storageContext.Provider
-      value={{ storage, addToStorage, deleteFromStorage, isInStorage }}
+      value={{
+        storage,
+        addToStorage,
+        deleteFromStorage,
+        isInStorage,
+        ratingError,
+      }}
     >
       {children}
     </storageContext.Provider>

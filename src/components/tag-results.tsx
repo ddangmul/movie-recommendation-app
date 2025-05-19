@@ -13,11 +13,21 @@ export default function TagResults({
   category: string;
 }) {
   const [contents, setContents] = useState<TMDBContent[]>([]);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetchContentsByTags(tags, category);
-      setContents(data);
+      try {
+        setLoading(true);
+        const data = await fetchContentsByTags(tags, category);
+        setContents(data);
+        setError(null);
+      } catch (err) {
+        setError("태그에 해당하는 콘텐츠 불러오기 실패");
+      } finally {
+        setLoading(false);
+      }
     };
 
     if (tags.length) fetchData();
@@ -31,6 +41,8 @@ export default function TagResults({
 
   return (
     <section className="mt-10 flex w-full justify-center items-center ">
+      {loading && <p className="text-gray-500">로딩 중...</p>}
+      {error && <p className="text-red-500">{error}</p>}
       <ul className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
         {contents.map((content) => (
           <li key={content.id} className="flex justify-center">

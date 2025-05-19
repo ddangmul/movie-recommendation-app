@@ -13,13 +13,14 @@ export default function Rating({
   category: string;
 }) {
   const [_hover, setHover] = useState(0);
-  const { ratings, setRating } = useRating();
+  const { ratings, setRating, error } = useRating();
 
   const currentRating =
     ratings.find((cont) => cont.id === content.id)?.rating || 0;
 
   return (
     <div className="flex gap-1">
+      {error && <p>{error}</p>}
       {[1, 2, 3, 4, 5].map((star) => (
         <Star
           key={star}

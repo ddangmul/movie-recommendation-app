@@ -12,6 +12,7 @@ export default function SearchPage() {
   const searchTerm = searchParams.get("q") || "";
   const [searchResult, setSearchResult] = useState([]);
   const [mediaType, setMediaType] = useState<"all" | "movie" | "tv">("all");
+  const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
     if (!searchTerm) return;
@@ -20,9 +21,10 @@ export default function SearchPage() {
       try {
         const result = await searchMulti(searchTerm);
         setSearchResult(result);
+        setHasError(false);
       } catch (error) {
-        console.error("검색 실패", error);
         setSearchResult([]);
+        setHasError(true);
       }
     };
 
@@ -43,6 +45,12 @@ export default function SearchPage() {
   return (
     <div className="pt-24 px-4 md:px-6 lg:px-60 min-h-screen">
       <h2 className="text-lg px-2 my-4">'{searchTerm}' 검색 결과</h2>
+      {hasError && (
+        <p className="text-red-500 text-sm mt-4">
+          검색 중 오류가 발생했습니다. 다시 시도해 주세요.
+        </p>
+      )}
+
       <div className="px-2 flex gap-4 mb-4">
         <button
           className={`px-4 py-1 rounded-md ${

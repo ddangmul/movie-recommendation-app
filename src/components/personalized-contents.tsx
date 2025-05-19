@@ -14,6 +14,7 @@ export default function PersonalizedRecommendations() {
   const [ratedContents, setRatedContents] = useState<Content[]>([]);
   const [recommendations, setRecommendations] = useState([]);
   const [topGenres, setTopGenres] = useState<number[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const rated = localStorage.getItem("RATINGS");
@@ -26,9 +27,14 @@ export default function PersonalizedRecommendations() {
       setTopGenres(genres);
       const data = await fetchRecommendationsByGenreIds(topGenres, "movie");
       setRecommendations(data);
-    };
 
-    if (ratedContents.length) fetchData();
+      try {
+        if (ratedContents.length) fetchData();
+        setError(null);
+      } catch (e) {
+        setError("맞춤 컨텐츠 가져오기 실패");
+      }
+    };
   }, [ratedContents]);
 
   return (
@@ -36,6 +42,7 @@ export default function PersonalizedRecommendations() {
       <h1 className="text-lg font-semibold">
         높은 점수를 준 작품들과 유사한 컨텐츠
       </h1>
+      {error && <p>{error}</p>}
       <ContentsSlider contents={recommendations} category="movie" />
     </div>
   );

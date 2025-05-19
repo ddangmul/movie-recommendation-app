@@ -10,11 +10,13 @@ export default function Storage({
   content: TMDBContent;
   category: string;
 }) {
-  const { addToStorage, deleteFromStorage, isInStorage } = useStorage();
+  const { addToStorage, deleteFromStorage, isInStorage, ratingError } =
+    useStorage();
   const isSaved = isInStorage(content);
 
   return (
     <div className="mb-10 flex flex-col items-end">
+      {ratingError && <p>{ratingError}</p>}
       {isSaved ? (
         <XIcon
           className="text-gray-500 cursor-pointer"

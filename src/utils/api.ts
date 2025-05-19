@@ -62,7 +62,7 @@ export const fetchKoreanOverview = cache(
     });
 
     if (!res.ok) {
-      throw new Error(`Failed to fetch Korean overview`);
+      throw new Error(`한국어 overview 정보 불러오기 실패`);
     }
 
     const data = await res.json();
@@ -92,7 +92,7 @@ export const fetchCredits = cache(async (category: string, id: string) => {
   );
 
   if (!res.ok || !resJob.ok) {
-    throw new Error(`Failed to fetch Korean overview`);
+    throw new Error(`크레딧 정보 불러오기 실패`);
   }
 
   const data = await res.json();
@@ -146,7 +146,7 @@ export const fetchStills = async (category: string, id: string) => {
   );
 
   if (!res.ok) {
-    throw new Error("스틸 이미지를 불러오기 실패");
+    throw new Error("스틸 이미지 불러오기 실패");
   }
 
   const data = await res.json();
@@ -169,8 +169,6 @@ export const searchMulti = cache(async (query: string) => {
   );
 
   if (!res.ok) {
-    const text = await res.text(); // HTML일 수도 있으므로 text로 읽기
-    console.error("Error response:", text);
     throw new Error(`API 요청 실패: ${res.status}`);
   }
 
@@ -210,7 +208,6 @@ export const fetchContentsByTags = cache(
     const genreIds = genreNames
       .map((name) => GENRE_MAP[name])
       .filter((id): id is number => !!id);
-    console.log(genreIds);
 
     if (genreIds.length === 0) return [];
 
