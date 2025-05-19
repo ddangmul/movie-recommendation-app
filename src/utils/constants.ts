@@ -1,4 +1,4 @@
-export const BASE_URL = process.env.BASE_URL;
+export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 export const TMDB_BEARER_TOKEN = process.env.TMDB_BEARER_TOKEN;
 
 if (!BASE_URL) {
