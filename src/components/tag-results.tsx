@@ -31,13 +31,13 @@ export default function TagResults({
     };
 
     if (tags.length) fetchData();
-  }, [tags]);
+  }, [tags, category]);
 
   // media_type 없음 (보완 필요)
-  const filteredResults =
-    category === "movie"
-      ? contents.filter((content) => content.media_type === "movie")
-      : contents.filter((content) => content.media_type === "tv");
+  // const filteredResults =
+  //   category === "movie"
+  //     ? contents.filter((content) => content.media_type === "movie")
+  //     : contents.filter((content) => content.media_type === "tv");
 
   return (
     <section className="mt-10 flex w-full justify-center items-center ">

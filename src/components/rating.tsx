@@ -12,7 +12,7 @@ export default function Rating({
   content: TMDBContent;
   category: string;
 }) {
-  const [_hover, setHover] = useState(0);
+  const [, setHover] = useState(0);
   const { ratings, setRating, error } = useRating();
 
   const currentRating =

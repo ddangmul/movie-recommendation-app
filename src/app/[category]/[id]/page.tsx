@@ -10,18 +10,20 @@ import {
   fetchSimilarContents,
   fetchStills,
 } from "@/src/utils/api";
-import { CreditsByApi, TMDBContent } from "@/src/types/types";
+import { TMDBContent } from "@/src/types/types";
 import { notFound } from "next/navigation";
 
-type Props = {
-  params: {
-    category: string;
-    id: string;
-  };
+type PageParams = {
+  category: string;
+  id: string;
 };
 
-export default async function DetailContentPage({ params }: Props) {
-  const { category, id } = await params;
+export default async function DetailContentPage({
+  params,
+}: {
+  params: PageParams;
+}) {
+  const { id, category } = params;
 
   const content: TMDBContent = await fetchContentsById(category, id);
   const overview = await fetchKoreanOverview(category, id);
@@ -31,7 +33,7 @@ export default async function DetailContentPage({ params }: Props) {
   const stills = await fetchStills(category, id);
 
   if (!content || !overview || !credits || !similarContents || stills)
-    notFound();
+    return notFound();
 
   return (
     <div>

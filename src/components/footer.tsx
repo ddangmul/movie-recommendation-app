@@ -1,6 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
-import MainLogo from "@/src/assets/MainLogo.png";
 import { Twitter, Facebook, Instagram } from "lucide-react";
 
 const Footer: React.FC = () => {

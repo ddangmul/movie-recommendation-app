@@ -22,7 +22,8 @@ export default function SearchPage() {
         const result = await searchMulti(searchTerm);
         setSearchResult(result);
         setHasError(false);
-      } catch (error) {
+      } catch (e) {
+        console.log(e);
         setSearchResult([]);
         setHasError(true);
       }
