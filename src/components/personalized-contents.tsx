@@ -47,6 +47,9 @@ export default function PersonalizedRecommendations() {
     <div className="space-y-2">
       <h1 className="text-lg font-semibold">당신의 취향과 일치하는 작품</h1>
       {error && <p className="text-red-500">{error}</p>}
+      {recommendations.length === 0 && (
+        <p>아직 취향을 분석하지 못했습니다. 다양한 컨텐츠를 평가해보세요.</p>
+      )}
       <ContentsSlider contents={recommendations} category="movie" />
     </div>
   );

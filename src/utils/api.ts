@@ -139,9 +139,19 @@ export const fetchSimilarContents = async (category: string, id: string) => {
 
   const data = await res.json();
 
-  if (!data) return null;
+  if (!data || data.results.length === 0) return null;
 
-  return data.results;
+  const filteredResults = data.results.filter(
+    (item: TMDBContent) =>
+      (item.title || item.name) &&
+      item.backdrop_path &&
+      item.poster_path &&
+      item.overview &&
+      item.vote_average &&
+      item.vote_average !== 0
+  );
+
+  return filteredResults;
 };
 
 export const fetchStills = async (category: string, id: string) => {

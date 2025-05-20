@@ -15,6 +15,29 @@ export default function TagResults({
   const [contents, setContents] = useState<TMDBContent[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const [visibleCount, setVisibleCount] = useState(3);
+  const [increment, setIncrement] = useState(3);
+
+  // 브라우저 사이즈에 따라 증가량 설정
+  useEffect(() => {
+    const updateIncrement = () => {
+      const width = window.innerWidth;
+      if (width >= 1280) {
+        setVisibleCount(12);
+        setIncrement(6);
+      } else if (width >= 1024) {
+        setVisibleCount(6);
+        setIncrement(6);
+      } else {
+        setVisibleCount(5);
+        setIncrement(5);
+      }
+    };
+
+    updateIncrement(); // 초기 설정
+    window.addEventListener("resize", updateIncrement); // 리사이즈 대응
+    return () => window.removeEventListener("resize", updateIncrement);
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,6 +56,12 @@ export default function TagResults({
     if (tags.length) fetchData();
   }, [tags, category]);
 
+  const handleShowMore = () => {
+    setVisibleCount((prev) => prev + increment);
+  };
+
+  const visibleRecommendations: TMDBContent[] = contents.slice(0, visibleCount);
+
   // media_type 없음 (보완 필요)
   // const filteredResults =
   //   category === "movie"
@@ -40,16 +69,25 @@ export default function TagResults({
   //     : contents.filter((content) => content.media_type === "tv");
 
   return (
-    <section className="mt-10 flex w-full justify-center items-center ">
+    <section className="mt-10 flex flex-col gap-8 w-full justify-center items-center">
       {loading && <p className="text-gray-500">로딩 중...</p>}
       {error && <p className="text-red-500">{error}</p>}
-      <ul className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-7 gap-4 md:gap-8">
-        {contents.map((content) => (
-          <li key={content.id} className="flex justify-center">
-            <ContentCard content={content} category={category} />
-          </li>
-        ))}
+      <ul className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-6 gap-4 md:gap-8 lg:gap-6">
+        {visibleRecommendations.length > 0 &&
+          visibleRecommendations.map((content: TMDBContent) => (
+            <li key={content.id} className="flex justify-center">
+              <ContentCard content={content} category={category} />
+            </li>
+          ))}
       </ul>
+      {contents.length > visibleRecommendations.length && (
+        <button
+          className="mt-2 px-4 py-2 text-sm bg-[#303030] text-white rounded"
+          onClick={handleShowMore}
+        >
+          더보기
+        </button>
+      )}
     </section>
   );
 }
