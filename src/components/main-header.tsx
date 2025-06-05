@@ -16,6 +16,12 @@ const MainHeader: React.FC = () => {
   const iconColorClass = isDetailPage ? "text-white" : "text-gray-700";
   const bgColorClass = isDetailPage ? "bg-transparent" : "bg-white";
 
+  const getLinkClass = (href: string) => {
+    const isActive = pathname === href;
+    const base = `transition-colors duration-200 ${textColorClass}`;
+    return isActive ? `${base} text-gray-400` : base;
+  };
+
   return (
     <header
       className={`w-full shadow py-4 fixed top-0 left-0 z-50 ${bgColorClass}`}
@@ -34,22 +40,28 @@ const MainHeader: React.FC = () => {
             />
           </Link>
           <div className={`flex gap-4 md:text-lg ${textColorClass}`}>
-            <Link href="/" aria-label="home">
+            <Link href="/" aria-label="home" className={getLinkClass("/")}>
               홈
             </Link>
-            <Link href="/movie" aria-label="영화">
+            <Link
+              href="/movie"
+              aria-label="영화"
+              className={getLinkClass("/movie")}
+            >
               영화
             </Link>
-            <Link href="/series" aria-label="시리즈">
+            <Link
+              href="/series"
+              aria-label="시리즈"
+              className={getLinkClass("/series")}
+            >
               시리즈
             </Link>
           </div>
         </div>
 
         <div className="flex gap-2 lg:gap-3 items-center">
-          <SearchBar
-            className={iconColorClass}
-          />
+          <SearchBar className={iconColorClass} />
           <Link href="/user" aria-label="보관함">
             <ArchiveBoxIcon className={`w-8 h-8 ${iconColorClass}`} />
           </Link>
