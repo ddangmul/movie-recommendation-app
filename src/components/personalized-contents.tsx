@@ -50,7 +50,7 @@ export default function PersonalizedRecommendations() {
       {recommendations.length === 0 && (
         <p>아직 취향을 분석하지 못했습니다. 다양한 컨텐츠를 평가해보세요.</p>
       )}
-      <ContentsSlider contents={recommendations} category="movie" />
+      {/* <ContentsSlider contents={recommendations} category="movie" /> */}
     </div>
   );
 }

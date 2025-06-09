@@ -26,14 +26,14 @@ const ContentsSlider: React.FC<{
       {/* 슬라이드 버튼 */}
       <button
         onClick={scrollleft}
-        className="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-white/60 hover:bg-white p-2 rounded-full shadow"
+        className="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white p-2 rounded-full shadow"
         aria-label="이전 영화 보기"
       >
         <LucideChevronLeft />
       </button>
       <button
         onClick={scrollRight}
-        className="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-white/30 hover:bg-white p-2 rounded-full shadow"
+        className="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white p-2 rounded-full shadow"
         aria-label="다음 영화 보기"
       >
         <LucideChevronRight />
