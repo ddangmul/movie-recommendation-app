@@ -39,7 +39,7 @@ const MainHeader: React.FC = () => {
               }}
             />
           </Link>
-          <div className={`flex gap-4 md:text-lg ${textColorClass}`}>
+          <div className={`flex gap-1.5 md:gap-4 md:text-lg ${textColorClass}`}>
             <Link href="/" aria-label="home" className={getLinkClass("/")}>
               홈
             </Link>
