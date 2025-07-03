@@ -16,18 +16,31 @@ const UserPage: React.FC = () => {
   return (
     <div className="flex flex-col">
       <h1 className="text-lg mt-4 mb-4">보관함</h1>
+
+      {/* 평가한 컨텐츠 */}
       <section>
         <h2 className="text-lg font-semibold py-6">평가한 컨텐츠</h2>
         <div>
-          {error && <p>{error}</p>}
-          <ContentsSlider contents={ratings} category="" />
+          {!error && ratings.length === 0 && (
+            <p className="text-gray-500">아직 평가한 컨텐츠가 없어요.</p>
+          )}
+          {ratings.length > 0 && (
+            <ContentsSlider contents={ratings} category="" />
+          )}
         </div>
       </section>
+
+      {/* 보고싶은 컨텐츠 */}
       <section className="mt-20">
         <h2 className="text-lg font-semibold py-6">보고싶은 컨텐츠</h2>
         <div>
-          {ratingError && <p>{ratingError}</p>}
-          <ContentsSlider contents={storage} category="" />
+          {ratingError && <p className="text-red-500">{ratingError}</p>}
+          {!ratingError && storage.length === 0 && (
+            <p className="text-gray-500">보고싶은 컨텐츠가 비어 있어요.</p>
+          )}
+          {storage.length > 0 && (
+            <ContentsSlider contents={storage} category="" />
+          )}
         </div>
       </section>
     </div>
