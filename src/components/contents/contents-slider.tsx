@@ -5,7 +5,7 @@ import { LucideChevronLeft, LucideChevronRight } from "lucide-react";
 import { TMDBContent } from "@/src/types/types";
 
 const ContentsSlider: React.FC<{
-  contents: TMDBContent[];
+  contents: TMDBContent[] | null;
   category: string;
 }> = ({ contents, category }) => {
   const listRef = useRef<HTMLUListElement>(null);
@@ -44,16 +44,17 @@ const ContentsSlider: React.FC<{
         ref={listRef}
         className="flex overflow-x-hidden scroll-smooth gap-2 md:gap-4 h-[450px]"
       >
-        {contents
-          .filter((content: TMDBContent) => !!content.poster_path)
-          .map((content: TMDBContent) => (
-            <li key={content.id}>
-              <ContentCard
-                content={content}
-                category={category !== "" ? category : content.category}
-              />
-            </li>
-          ))}
+        {contents &&
+          contents
+            .filter((content: TMDBContent) => !!content.poster_path)
+            .map((content: TMDBContent) => (
+              <li key={content.id}>
+                <ContentCard
+                  content={content}
+                  category={category !== "" ? category : content.category}
+                />
+              </li>
+            ))}
       </ul>
     </div>
   );
