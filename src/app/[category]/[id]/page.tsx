@@ -32,8 +32,10 @@ export default async function DetailContentPage({
   const similarContents = await fetchSimilarContents(category, id);
   const stills = await fetchStills(category, id);
 
-  if (!content || !overview || !credits || !similarContents || !stills)
+  if (!content || !overview || !credits) {
+    console.log(content, overview, credits, people, similarContents, stills);
     return notFound();
+  }
 
   return (
     <div>
@@ -45,12 +47,14 @@ export default async function DetailContentPage({
       />
       <div className="px-4 md:px-8 lg:px-60 mt-8 space-y-20  md:space-y-28">
         <Credits credits={people} category={category} />
-        <Stills stills={stills} />
-        <SimilarContent
-          content={content}
-          contents={similarContents}
-          category={category}
-        />
+        {stills && <Stills stills={stills} />}
+        {similarContents && (
+          <SimilarContent
+            content={content}
+            contents={similarContents}
+            category={category}
+          />
+        )}
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { Dialog } from "@headlessui/react";
-import { useTags } from "../contexts/tag-context";
+import { useTagStore } from "../stores/useTagStore";
 const AVAILABLE_TAGS = [
   "감성적",
   "긴장감",
@@ -26,7 +26,7 @@ export default function TagSelectorModal({
   initialTags?: string[];
 }) {
   const [selected, setSelected] = useState<string[]>(initialTags);
-  const { savedTags, setSelectedTags } = useTags();
+  const { savedTags, setSelectedTags } = useTagStore();
 
   const toggleTag = (tag: string) => {
     setSelected((prev: string[]) =>

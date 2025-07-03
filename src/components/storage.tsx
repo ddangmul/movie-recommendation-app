@@ -1,6 +1,6 @@
 import { PlusIcon } from "lucide-react";
 import { XIcon } from "lucide-react";
-import { useStorage } from "../contexts/storage-context";
+import { useStorageStore } from "../stores/useStorageStore";
 import { TMDBContent } from "../types/types";
 
 export default function Storage({
@@ -11,7 +11,7 @@ export default function Storage({
   category: string;
 }) {
   const { addToStorage, deleteFromStorage, isInStorage, ratingError } =
-    useStorage();
+    useStorageStore();
   const isSaved = isInStorage(content);
 
   return (

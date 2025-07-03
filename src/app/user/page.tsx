@@ -1,11 +1,17 @@
 "use client";
 import ContentsSlider from "@/src/components/contents/contents-slider";
-import { useRating } from "@/src/contexts/rating-context";
-import { useStorage } from "@/src/contexts/storage-context";
+import { useRatingStore } from "@/src/stores/useRatingStore";
+import { useStorageStore } from "@/src/stores/useStorageStore";
+import { useEffect } from "react";
 
 const UserPage: React.FC = () => {
-  const { ratings, error } = useRating();
-  const { storage, ratingError } = useStorage();
+  const { ratings, error, loadingRatings } = useRatingStore();
+  const { storage, ratingError, loadStorage } = useStorageStore();
+
+  useEffect(() => {
+    loadingRatings();
+    loadStorage();
+  }, []);
 
   return (
     <div className="flex flex-col">

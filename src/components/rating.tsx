@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Star } from "lucide-react";
-import { useRating } from "../contexts/rating-context";
+import { useRatingStore } from "../stores/useRatingStore";
 import { TMDBContent } from "../types/types";
 
 export default function Rating({
@@ -13,7 +13,7 @@ export default function Rating({
   category: string;
 }) {
   const [, setHover] = useState(0);
-  const { ratings, setRating, error } = useRating();
+  const { ratings, setRating, error } = useRatingStore();
 
   const currentRating =
     ratings.find((cont) => cont.id === content.id)?.rating || 0;

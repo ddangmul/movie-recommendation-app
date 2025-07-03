@@ -10,7 +10,7 @@ export default function SearchPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const searchTerm = searchParams.get("q") || "";
-  const [searchResult, setSearchResult] = useState([]);
+  const [searchResult, setSearchResult] = useState<TMDBContent[]>([]);
   const [mediaType, setMediaType] = useState<"all" | "movie" | "tv">("all");
   const [hasError, setHasError] = useState(false);
 

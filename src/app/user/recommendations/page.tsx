@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { useTags } from "@/src/contexts/tag-context";
+import { useTagStore } from "@/src/stores/useTagStore";
 import TagSelectorModal from "@/src/components/tag-selector-modal";
 import TagResults from "@/src/components/tag-results";
 import Link from "next/link";
@@ -9,7 +9,7 @@ import PersonalizedRecommendations from "@/src/components/personalized-contents"
 const RecommendationsPage: React.FC = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [mediaType, setMediaType] = useState<"tv" | "movie">("movie");
-  const { selectedTags, setSelectedTags } = useTags();
+  const { selectedTags, setSelectedTags } = useTagStore();
 
   return (
     <div className="px-10 md:px-8 lg:px-0">
