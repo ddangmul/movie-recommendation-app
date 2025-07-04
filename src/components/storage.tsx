@@ -2,6 +2,7 @@ import { PlusIcon } from "lucide-react";
 import { XIcon } from "lucide-react";
 import { useStorageStore } from "../stores/useStorageStore";
 import { TMDBContent } from "../types/types";
+import { useShallow } from "zustand/shallow";
 
 export default function Storage({
   content,
@@ -10,10 +11,15 @@ export default function Storage({
   content: TMDBContent;
   category: string;
 }) {
-  const addToStorage = useStorageStore((state) => state.addToStorage);
-  const deleteFromStorage = useStorageStore((state) => state.deleteFromStorage);
-  const storageError = useStorageStore((state) => state.storageError);
-  // selector로 isInStorage 결과를 가져오게 해서 isSaved를 계산된 값이 아니라 상태로 추적하게 리팩터링
+  const { addToStorage, deleteFromStorage, storageError } = useStorageStore(
+    useShallow((state) => ({
+      addToStorage: state.addToStorage,
+      deleteFromStorage: state.deleteFromStorage,
+      storageError: state.storageError,
+    }))
+  );
+  
+  // 선택자로 isInStorage 결과를 가져오게 해서 isSaved를 계산된 값이 아니라 상태로 추적하게 리팩터링
   const isSaved = useStorageStore((state) => state.isInStorage(content));
 
   return (

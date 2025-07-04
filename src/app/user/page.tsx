@@ -3,16 +3,26 @@ import ContentsSlider from "@/src/components/contents/contents-slider";
 import { useRatingStore } from "@/src/stores/useRatingStore";
 import { useStorageStore } from "@/src/stores/useStorageStore";
 import { useEffect } from "react";
-import { shallow } from "zustand/shallow";
+import { useShallow } from "zustand/shallow";
 
 const UserPage: React.FC = () => {
   // 선택자 함수 사용
-  const ratings = useRatingStore((state) => state.ratings);
-  const error = useRatingStore((state) => state.error);
-  const loadingRatings = useRatingStore((state) => state.loadingRatings);
-  const storage = useStorageStore((state) => state.storage);
-  const storageError = useStorageStore((state) => state.storageError);
-  const loadStorage = useStorageStore((state) => state.loadStorage);
+
+  const { ratings, error, loadingRatings } = useRatingStore(
+    useShallow((state) => ({
+      ratings: state.ratings,
+      error: state.error,
+      loadingRatings: state.loadingRatings,
+    }))
+  );
+
+  const { storage, storageError, loadStorage } = useStorageStore(
+    useShallow((state) => ({
+      storage: state.storage,
+      storageError: state.storageError,
+      loadStorage: state.loadStorage,
+    }))
+  );
 
   useEffect(() => {
     loadingRatings();
