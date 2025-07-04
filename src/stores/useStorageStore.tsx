@@ -7,7 +7,7 @@ import { useTagStore } from "./useTagStore";
 
 type StorageState = {
   storage: TMDBContent[];
-  ratingError: string | null;
+  storageError: string | null;
   loadStorage: () => void;
   addToStorage: (content: TMDBContent, category: string) => void;
   deleteFromStorage: (content: TMDBContent) => void;
@@ -18,17 +18,17 @@ const STORAGE_KEY = "STORAGE";
 
 export const useStorageStore = create<StorageState>((set, get) => ({
   storage: [],
-  ratingError: null,
+  storageError: null,
 
   // 로컬스토리지에서 보관함 컨텐츠 불러오기
   loadStorage: () => {
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored) {
-        set({ storage: JSON.parse(stored), ratingError: null });
+        set({ storage: JSON.parse(stored), storageError: null });
       }
     } catch {
-      set({ ratingError: "저장한 컨텐츠 목록 가져오기 실패" });
+      set({ storageError: "저장한 컨텐츠 목록 가져오기 실패" });
     }
   },
 

@@ -13,7 +13,9 @@ export default function Rating({
   category: string;
 }) {
   const [, setHover] = useState(0);
-  const { ratings, setRating, error } = useRatingStore();
+  const ratings = useRatingStore((state) => state.ratings);
+  const setRating = useRatingStore((state) => state.setRating);
+  const error = useRatingStore((state) => state.error);
 
   const currentRating =
     ratings.find((cont) => cont.id === content.id)?.rating || 0;

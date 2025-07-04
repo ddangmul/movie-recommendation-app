@@ -26,7 +26,8 @@ export default function TagSelectorModal({
   initialTags?: string[];
 }) {
   const [selected, setSelected] = useState<string[]>(initialTags);
-  const { savedTags, setSelectedTags } = useTagStore();
+  const savedTags = useTagStore((state) => state.savedTags);
+  const setSelectedTags = useTagStore((state) => state.setSelectedTags);
 
   const toggleTag = (tag: string) => {
     setSelected((prev: string[]) =>

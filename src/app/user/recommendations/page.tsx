@@ -9,7 +9,8 @@ import PersonalizedRecommendations from "@/src/components/personalized-contents"
 const RecommendationsPage: React.FC = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [mediaType, setMediaType] = useState<"tv" | "movie">("movie");
-  const { selectedTags, setSelectedTags } = useTagStore();
+  const selectedTags = useTagStore((state) => state.selectedTags);
+  const setSelectedTags = useTagStore((state) => state.setSelectedTags);
 
   return (
     <div className="px-10 md:px-8 lg:px-0">
